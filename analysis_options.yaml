@@ -3,7 +3,6 @@ include: package:very_good_analysis/analysis_options.yaml
 analyzer:
   exclude:
     - build/**
-    - legacy_tests/**
     - tests/**
     - lib/core/l10n/generated/**
   errors:

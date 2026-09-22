@@ -1,3 +1,4 @@
-// Default entry point (production). Use main_dev.dart / main_prod.dart with
-// `flutter run -t` to pick a flavor explicitly.
-export 'package:ibnzaidon/main_prod.dart';
+import 'package:ibnzaidon/app/bootstrap.dart';
+import 'package:ibnzaidon/core/config/app_config.dart';
+
+Future<void> main() => bootstrap(AppConfig.standard());

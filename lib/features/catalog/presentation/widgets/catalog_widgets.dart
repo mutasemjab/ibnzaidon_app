@@ -86,7 +86,11 @@ class CategoryCard extends StatelessWidget {
           );
     final label = Text(
       category.name,
-      maxLines: 2,
+      // The vertical variant sits in a fixed-height carousel/grid cell
+      // (e.g. the home strip: 128 tall minus card padding), so a 2-line
+      // wrap of a long real category name overflowed it. One line there;
+      // the horizontal row has unconstrained height, so 2 lines is safe.
+      maxLines: horizontal ? 2 : 1,
       overflow: TextOverflow.ellipsis,
       textAlign: horizontal ? TextAlign.start : TextAlign.center,
       style: context.text.titleSmall,
@@ -112,16 +116,28 @@ class CategoryCard extends StatelessWidget {
               children: [
                 leading,
                 const SizedBox(height: AppSpacing.sm),
-                label,
-                if (category.subcategoriesCount > 0)
-                  Text(
-                    context.l10n.categorySubcategories(
-                      category.subcategoriesCount,
-                    ),
-                    style: context.text.labelSmall?.copyWith(
-                      color: context.colors.onSurfaceVariant,
-                    ),
+                // Flexible so an extreme case (huge accessibility text
+                // scale, an unbreakable long word) clips instead of
+                // throwing a render overflow.
+                Flexible(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      label,
+                      if (category.subcategoriesCount > 0)
+                        Text(
+                          context.l10n.categorySubcategories(
+                            category.subcategoriesCount,
+                          ),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: context.text.labelSmall?.copyWith(
+                            color: context.colors.onSurfaceVariant,
+                          ),
+                        ),
+                    ],
                   ),
+                ),
               ],
             ),
     );

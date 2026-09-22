@@ -1,9 +1,8 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ibnzaidon/app/router/app_routes.dart';
-import 'package:ibnzaidon/core/config/app_config.dart';
-import 'package:ibnzaidon/core/di/injector.dart';
 import 'package:ibnzaidon/core/utils/context_extensions.dart';
 import 'package:ibnzaidon/design_system/components/app_card.dart';
 import 'package:ibnzaidon/design_system/components/app_tabs.dart';
@@ -111,7 +110,6 @@ class _AboutCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
-    final isDev = getIt<AppConfig>().isDev;
     return AppCard(
       onTap: null,
       child: Column(
@@ -121,8 +119,8 @@ class _AboutCard extends StatelessWidget {
           Text(l10n.appName, style: context.text.titleSmall),
           const SizedBox(height: AppSpacing.xs),
           GestureDetector(
-            // Hidden entry to the design gallery (dev flavor only).
-            onLongPress: isDev
+            // Hidden entry to the design gallery (debug builds only).
+            onLongPress: kDebugMode
                 ? () => context.push(AppRoutes.designGallery)
                 : null,
             child: FutureBuilder<PackageInfo>(

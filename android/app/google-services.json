@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "981552066394",
-    "project_id": "bahith-465f9",
-    "storage_bucket": "bahith-465f9.firebasestorage.app"
+    "project_number": "363005337166",
+    "project_id": "zaidon-d25e9",
+    "storage_bucket": "zaidon-d25e9.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:981552066394:android:c904f8765c875ebccd4d63",
+        "mobilesdk_app_id": "1:363005337166:android:1dab38903aab4f6de6ad1f",
         "android_client_info": {
           "package_name": "com.ibnzaidon.school"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyBT3SvvBe60CJClw78kQ650yWFbzAJLrkI"
+          "current_key": "AIzaSyDaQH1iDMHG2HWmcWwTo5uqqNqzvsTc9r8"
         }
       ],
       "services": {

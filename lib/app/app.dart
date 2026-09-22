@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -32,7 +33,7 @@ class _IbnZaidonAppState extends State<IbnZaidonApp> {
   late final GoRouter _router = AppRouter.create(
     authBloc: getIt<AuthBloc>(),
     flags: getIt<AppConfig>().featureFlags,
-    showDesignGallery: getIt<AppConfig>().isDev,
+    showDesignGallery: kDebugMode,
   );
 
   @override

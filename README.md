@@ -11,7 +11,7 @@ Clean Architecture, feature-first, BLoC for state.
 
 ```
 lib/
-├─ main.dart / main_dev.dart / main_prod.dart   # flavor entry points
+├─ main.dart       # single entry point — `flutter run` just works
 ├─ app/            # App widget, router (go_router), shell, bootstrap, DI wiring
 ├─ core/           # config, error (Failure), network, storage, bloc bases, utils, l10n
 ├─ design_system/  # tokens, theme, components, hidden Design Gallery
@@ -37,28 +37,33 @@ Reusable bases (write a feature in ~30 lines):
 |---|---|---|
 | `freezed` / `json_serializable` / `injectable` codegen | Hand-written `Equatable` states + tolerant DTO parsers, manual `get_it` modules | The API needs tolerant parsing (numbers-as-strings, `1/0` booleans, mixed shapes) that generated `fromJson` cannot express, and it removes `build_runner` from the workflow. **No code generation is needed** (only `flutter gen-l10n`, which runs on `flutter pub get`/`run`). |
 | `hive_ce` | `shared_preferences` JSON cache | Small payloads (home, categories, banners, page 1 of my-courses). |
-| Native flavor bundle-id suffixes | `--dart-define` flavors only | Flavor-specific Firebase configs (`google-services.json` / `GoogleService-Info.plist`) are needed first. |
 | Lottie illustrations | Built-in animated `IllustrationBadge` | No illustration assets were supplied. |
 | Avatar crop | Resize + compress (`image_picker`, ≤ 2 MB check) | Keeps the dependency list small. |
 | `GET classes` picker on register | Not built | No endpoint exists to list classes (`class_id` stays optional). |
+| Dev/prod flavors, automated tests | Removed by request | Single `main.dart`, no `test/` folder — plain `flutter run` picks up every change. |
 
 ## Running
 
 ```bash
-flutter pub get                       # also generates l10n (flutter: generate: true)
-
-# dev flavor (logging on, design gallery reachable)
-flutter run -t lib/main_dev.dart  --dart-define=API_BASE_URL=https://dev.example.com
-
-# prod flavor
-flutter run -t lib/main_prod.dart --dart-define=API_BASE_URL=https://example.com
+flutter pub get   # also generates l10n (flutter: generate: true)
+flutter run
 ```
 
-`--dart-define` switches: `API_BASE_URL`, `SECURE_SCREENS` (screenshot block on
-exam / paid-video screens, default `true` in prod), and feature flags
-`FF_ANNOUNCEMENTS`, `FF_CONDUCT`, `FF_PLANNERS`, `FF_SCHEDULES`, `FF_SIBLINGS`.
+That's it — one entry point (`lib/main.dart`), no `-t` target to remember. It
+talks to `https://ibnzaidon.com` by default. `--dart-define` switches, only
+needed if you want to override something:
+`API_BASE_URL`, `SECURE_SCREENS` (screenshot block on exam / paid-video
+screens, default on), `API_LOGGING` (prints every request/response, default
+on — see below), and feature flags `FF_ANNOUNCEMENTS`, `FF_CONDUCT`,
+`FF_PLANNERS`, `FF_SCHEDULES`, `FF_SIBLINGS`.
 
-> The default `API_BASE_URL` values are placeholders — set the real host.
+### Seeing API requests/responses
+
+Every request and response (status, timing, full JSON body) is printed to the
+console via `debugPrint` — just watch the terminal `flutter run` is attached
+to (or `adb logcat`, lines tagged `[api]`). Passwords and the auth token are
+redacted; everything else prints in full. This is on by default; disable it
+for a real release with `--dart-define=API_LOGGING=false`.
 
 ### Localization
 
@@ -70,17 +75,6 @@ node tool/merge_arb.js && flutter gen-l10n
 ```
 
 (This writes `lib/core/l10n/arb/app_{ar,en}.arb`; Arabic is the template.)
-
-### Tests
-
-```bash
-flutter test                          # unit, bloc, widget, golden
-flutter test --update-goldens         # after intentional UI changes
-flutter analyze
-```
-
-`legacy_tests/` holds tests from the previous (removed) `ibnzaidon` code base;
-they are excluded from analysis and are not run.
 
 ## Adding a feature
 
@@ -95,7 +89,7 @@ they are excluded from analysis and are not run.
 4. Register in `app/di/features_module.dart` (factory for screen blocs,
    singleton for global ones) and add the route in `app/router/app_router.dart`
    + `app_routes.dart`.
-5. Add localization keys in `tool/l10n`, then tests.
+5. Add localization keys in `tool/l10n`.
 
 ## Behaviors worth knowing
 
@@ -169,8 +163,8 @@ injectable; no UI is exposed until the backend lists siblings in `profile`.
 
 ## Release checklist
 
-* [ ] Set real `API_BASE_URL` per flavor; add flavor-specific Firebase configs
-      if dev/prod use different projects.
+* [ ] Confirm `API_BASE_URL` (defaults to the real API already) and set
+      `--dart-define=API_LOGGING=false` for the store build.
 * [ ] `android/app/proguard-rules.pro` must exist (release build has R8 on);
       add keep rules for WebView / Firebase if needed.
 * [ ] Android: `key.properties` + keystore; `POST_NOTIFICATIONS` and `INTERNET`
@@ -184,6 +178,6 @@ injectable; no UI is exposed until the backend lists siblings in `profile`.
       prefix is configurable in `AppConfig.applePurchaseProductPrefix`.
 * [ ] Icons: `dart run flutter_launcher_icons`; native splash if desired.
 * [ ] Build with obfuscation:
-      `flutter build appbundle --obfuscate --split-debug-info=build/symbols -t lib/main_prod.dart`
+      `flutter build appbundle --obfuscate --split-debug-info=build/symbols`
       (upload the symbols to Crashlytics).
-* [ ] Run `flutter test` and `flutter analyze`.
+* [ ] Run `flutter analyze`.
