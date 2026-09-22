@@ -1,0 +1,19 @@
+{
+  "examTimeRemaining": ["الوقت المتبقي {time}", "Time remaining {time}", "time:String"],
+  "galleryTitle": ["معرض التصميم", "Design gallery"],
+  "galleryButtons": ["الأزرار", "Buttons"],
+  "galleryInputs": ["حقول الإدخال", "Inputs"],
+  "galleryCards": ["البطاقات", "Cards"],
+  "galleryIndicators": ["المؤشرات", "Indicators"],
+  "galleryStates": ["الحالات", "States"],
+  "galleryOverlays": ["النوافذ المنبثقة", "Overlays"],
+  "galleryNavigation": ["التنقل", "Navigation"],
+  "galleryLoading": ["جاري التحميل", "Loading"],
+  "galleryShowSheet": ["عرض ورقة سفلية", "Show bottom sheet"],
+  "galleryShowDialog": ["عرض نافذة تأكيد", "Show dialog"],
+  "galleryShowSnackbar": ["عرض إشعار", "Show snackbar"],
+  "gallerySampleCourse": ["أساسيات الرياضيات للصف العاشر", "Grade 10 Mathematics Essentials"],
+  "gallerySampleTeacher": ["أ. سامي الحداد", "Mr. Sami Haddad"],
+  "gallerySampleText": ["نص تجريبي", "Sample text"],
+  "gallerySampleMessage": ["هذه رسالة تجريبية لعرض المكوّن", "This is a sample message to preview the component"]
+}

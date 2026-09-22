@@ -1,0 +1,28 @@
+{
+  "teachersTitle": ["المدرّسون", "Teachers"],
+  "teachersSearchHint": ["ابحث عن مدرّس", "Search teachers"],
+  "teachersEmpty": ["لا يوجد مدرّسون مطابقون", "No matching teachers"],
+  "teacherVerified": ["مدرّس موثّق", "Verified teacher"],
+  "teacherExperience": ["{years} سنوات خبرة", "{years} years of experience", "years:int"],
+  "teacherQualification": ["المؤهل العلمي", "Qualification"],
+  "teacherAbout": ["نبذة عن المدرّس", "About the teacher"],
+  "teacherCoursesTitle": ["دورات المدرّس", "Teacher's courses"],
+  "teacherNoCourses": ["لا توجد دورات لهذا المدرّس بعد", "This teacher has no courses yet"],
+
+  "libraryTitle": ["المكتبة", "Library"],
+  "libraryPreviousExams": ["امتحانات سابقة", "Previous exams"],
+  "libraryQuestionBanks": ["بنوك الأسئلة", "Question banks"],
+  "libraryWorksheets": ["أوراق العمل", "Worksheets"],
+  "librarySearchHint": ["ابحث في الملفات", "Search files"],
+  "libraryYear": ["السنة", "Year"],
+  "librarySubject": ["المادة", "Subject"],
+  "libraryEmptyTitle": ["لا توجد ملفات", "No files found"],
+  "libraryPages": ["{count} صفحة", "{count} pages", "count:int"],
+  "libraryOpen": ["فتح", "Open"],
+  "libraryDownloading": ["جارٍ التنزيل {percent}", "Downloading {percent}", "percent:String"],
+  "libraryDownloaded": ["محفوظ للقراءة دون اتصال", "Saved for offline reading"],
+  "libraryDownloadFailed": ["تعذّر تنزيل الملف", "Couldn't download the file"],
+  "libraryShareFile": ["مشاركة الملف", "Share file"],
+  "pdfViewerFailed": ["تعذّر عرض الملف", "Couldn't display the file"],
+  "pdfPageOf": ["صفحة {current} من {total}", "Page {current} of {total}", "current:int,total:int"]
+}

@@ -1,0 +1,14 @@
+{
+  "lessonPrevious": ["الدرس السابق", "Previous lesson"],
+  "lessonNext": ["الدرس التالي", "Next lesson"],
+  "lessonMarkComplete": ["تحديد كمكتمل", "Mark as complete"],
+  "lessonCompleted": ["تم إكمال الدرس", "Lesson completed"],
+  "lessonResumeFrom": ["سنكمل من حيث توقفت", "Resuming where you left off"],
+  "lessonNoVideo": ["لا يتوفر فيديو لهذا الدرس", "No video available for this lesson"],
+  "lessonNoFile": ["لا يتوفر ملف لهذا الدرس", "No file available for this lesson"],
+  "lessonOpenFile": ["فتح الملف", "Open file"],
+  "lessonForbiddenTitle": ["لا يمكنك فتح هذا الدرس بعد", "You can't open this lesson yet"],
+  "lessonForbiddenFallback": ["فعّل الدورة أو أكمل الدروس السابقة للمتابعة.", "Activate the course or finish the previous lessons to continue."],
+  "lessonBackToCourse": ["العودة إلى الدورة", "Back to course"],
+  "lessonCoursePercent": ["تقدّم الدورة {percent}", "Course progress {percent}", "percent:String"]
+}

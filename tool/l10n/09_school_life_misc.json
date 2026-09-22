@@ -1,0 +1,17 @@
+{
+  "schoolAnnouncements": ["الإعلانات", "Announcements"],
+  "schoolConduct": ["ميثاق السلوك", "Code of conduct"],
+  "schoolPlanner": ["المخطط الدراسي", "Study planner"],
+  "schoolPlannerNotes": ["ملاحظات اليوم", "Daily notes"],
+  "schoolPlannerWeekly": ["الأسبوع", "Weekly"],
+  "schoolSchedules": ["الجداول", "Schedules"],
+  "schoolScheduleClass": ["جدول الحصص", "Class schedule"],
+  "schoolScheduleExam": ["جدول الاختبارات", "Exam schedule"],
+  "conductSign": ["أوافق وأوقّع", "I agree & sign"],
+  "conductSigned": ["تم توقيع الميثاق", "Code of conduct signed"],
+  "siblingSwitchTitle": ["تبديل الحساب", "Switch account"],
+  "siblingSwitchHint": ["أدخل رقم الحساب المرتبط", "Enter the linked account ID"],
+  "siblingSwitchAction": ["تبديل", "Switch"],
+  "siblingSwitched": ["تم تبديل الحساب", "Account switched"],
+  "homeGreetingWithName": ["{greeting}، {name}", "{greeting}, {name}", "greeting:String,name:String"]
+}

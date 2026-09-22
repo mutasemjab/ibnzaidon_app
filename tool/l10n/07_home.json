@@ -1,0 +1,20 @@
+{
+  "homeGreetingMorning": ["صباح الخير", "Good morning"],
+  "homeGreetingEvening": ["مساء الخير", "Good evening"],
+  "homeGreetingSubtitle": ["ماذا تريد أن تتعلم اليوم؟", "What would you like to learn today?"],
+  "homeCategories": ["التصنيفات", "Categories"],
+  "homeFeatured": ["دورات مميزة", "Featured courses"],
+  "homeTrending": ["الأكثر رواجاً", "Trending now"],
+  "homeTopTeachers": ["أفضل المدرّسين", "Top teachers"],
+  "homeQuickExams": ["الاختبارات", "Exams"],
+  "homeQuickTeachers": ["المدرّسون", "Teachers"],
+  "homeQuickMyExams": ["نتائجي", "My results"],
+  "homeQuickCourses": ["كل الدورات", "All courses"],
+  "homeStatStudents": ["طالب", "Students"],
+  "homeStatTeachers": ["مدرّس", "Teachers"],
+  "homeStatCourses": ["دورة", "Courses"],
+  "homeSectionFailed": ["تعذّر تحميل هذا القسم", "Couldn't load this section"],
+  "homeGuestPrompt": ["سجّل الدخول لرؤية الدورات المميزة والمدرّسين وتقدّمك.", "Sign in to see featured courses, teachers and your progress."],
+  "notificationsTooltip": ["الإشعارات", "Notifications"],
+  "notificationsBadgeLabel": ["{count} إشعارات غير مقروءة", "{count} unread notifications", "count:int"]
+}

@@ -1,0 +1,655 @@
+{
+  "@@locale": "ar",
+  "appName": "أكاديمية ابن زيدون",
+  "appTagline": "تعلّم بذكاء، تميّز بثقة",
+  "commonRetry": "إعادة المحاولة",
+  "commonCancel": "إلغاء",
+  "commonConfirm": "تأكيد",
+  "commonOk": "حسناً",
+  "commonSave": "حفظ",
+  "commonClose": "إغلاق",
+  "commonSeeAll": "عرض الكل",
+  "commonSearch": "بحث",
+  "commonNext": "التالي",
+  "commonPrevious": "السابق",
+  "commonSkip": "تخطي",
+  "commonContinue": "متابعة",
+  "commonBack": "رجوع",
+  "commonDelete": "حذف",
+  "commonEdit": "تعديل",
+  "commonShare": "مشاركة",
+  "commonOpen": "فتح",
+  "commonDownload": "تنزيل",
+  "commonApply": "تطبيق",
+  "commonReset": "إعادة ضبط",
+  "commonFilters": "تصفية",
+  "commonAll": "الكل",
+  "commonFree": "مجاني",
+  "commonLoadMoreFailed": "تعذّر تحميل المزيد",
+  "commonPullToRefresh": "اسحب للتحديث",
+  "commonMinutes": "{count} دقيقة",
+  "@commonMinutes": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "commonHours": "{count} ساعة",
+  "@commonHours": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "commonCoursesCount": "{count, plural, =0{لا دورات} =1{دورة واحدة} other{{count} دورة}}",
+  "@commonCoursesCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "commonStudentsCount": "{count} طالب",
+  "@commonStudentsCount": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "commonLessonsCount": "{count, plural, =0{لا دروس} =1{درس واحد} other{{count} دروس}}",
+  "@commonLessonsCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "commonQuestionsCount": "{count, plural, =0{لا أسئلة} =1{سؤال واحد} other{{count} أسئلة}}",
+  "@commonQuestionsCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "errorNoInternet": "لا يوجد اتصال بالإنترنت. تحقق من الشبكة وحاول مجدداً.",
+  "errorTimeout": "استغرق الاتصال وقتاً طويلاً. حاول مرة أخرى.",
+  "errorUnauthorized": "انتهت الجلسة. يرجى تسجيل الدخول مجدداً.",
+  "errorForbidden": "لا تملك صلاحية الوصول إلى هذا المحتوى.",
+  "errorValidation": "يرجى التحقق من البيانات المدخلة.",
+  "errorNotFound": "لم نعثر على المحتوى المطلوب.",
+  "errorServer": "حدث خطأ في الخادم. حاول لاحقاً.",
+  "errorUnknown": "حدث خطأ غير متوقع.",
+  "errorSessionExpired": "انتهت جلستك. سجّل الدخول مجدداً للمتابعة.",
+  "errorStateTitle": "عذراً، حدث خطأ",
+  "offlineBanner": "أنت غير متصل. تعرض التطبيق آخر البيانات المحفوظة.",
+  "emptyTitle": "لا يوجد شيء هنا بعد",
+  "emptyMessage": "جرّب تغيير البحث أو التصفية.",
+  "gateTitle": "سجّل الدخول للمتابعة",
+  "gateMessage": "أنشئ حساباً أو سجّل الدخول للوصول إلى دوراتك واختباراتك وتقدّمك.",
+  "gateSignIn": "تسجيل الدخول",
+  "gateCreateAccount": "إنشاء حساب",
+  "navHome": "الرئيسية",
+  "navExplore": "استكشاف",
+  "navMyCourses": "دوراتي",
+  "navLibrary": "المكتبة",
+  "navProfile": "حسابي",
+  "onboardingTitle1": "دورات مسجّلة بجودة عالية",
+  "onboardingBody1": "شاهد دروسك في أي وقت ومن أي مكان، وتابع من حيث توقفت.",
+  "onboardingTitle2": "اختبارات مع تحليل فوري",
+  "onboardingBody2": "اختبر نفسك واعرف نقاط قوتك وضعفك مباشرة بعد التسليم.",
+  "onboardingTitle3": "مكتبة أوراق عمل وامتحانات سابقة",
+  "onboardingBody3": "حمّل ملفات PDF وتدرّب على بنوك الأسئلة والامتحانات السابقة.",
+  "onboardingGetStarted": "ابدأ الآن",
+  "authLoginTitle": "أهلاً بعودتك",
+  "authLoginSubtitle": "سجّل الدخول لمتابعة رحلتك التعليمية",
+  "authRegisterTitle": "أنشئ حسابك",
+  "authRegisterSubtitle": "انضم إلى أكاديمية ابن زيدون اليوم",
+  "authFieldName": "الاسم الكامل",
+  "authFieldPhone": "رقم الهاتف",
+  "authFieldEmail": "البريد الإلكتروني (اختياري)",
+  "authFieldPassword": "كلمة المرور",
+  "authFieldPasswordConfirm": "تأكيد كلمة المرور",
+  "authFieldCurrentPassword": "كلمة المرور الحالية",
+  "authFieldNewPassword": "كلمة المرور الجديدة",
+  "authLoginAction": "تسجيل الدخول",
+  "authRegisterAction": "إنشاء الحساب",
+  "authContinueAsGuest": "المتابعة كزائر",
+  "authNoAccount": "ليس لديك حساب؟",
+  "authHaveAccount": "لديك حساب بالفعل؟",
+  "authShowPassword": "إظهار كلمة المرور",
+  "authHidePassword": "إخفاء كلمة المرور",
+  "validationRequired": "هذا الحقل مطلوب",
+  "validationPhone": "أدخل رقم هاتف صحيحاً",
+  "validationEmail": "أدخل بريداً إلكترونياً صحيحاً",
+  "validationPasswordShort": "كلمة المرور يجب أن تكون 8 أحرف على الأقل",
+  "validationPasswordMismatch": "كلمتا المرور غير متطابقتين",
+  "authInvalidCredentials": "رقم الهاتف أو كلمة المرور غير صحيحة",
+  "authAccountSuspended": "تم إيقاف هذا الحساب. تواصل مع الإدارة.",
+  "authWelcomeName": "مرحباً، {name}",
+  "@authWelcomeName": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "authWelcomeGuest": "مرحباً بك",
+  "settingsTitle": "الإعدادات",
+  "settingsLanguage": "اللغة",
+  "settingsLanguageArabic": "العربية",
+  "settingsLanguageEnglish": "English",
+  "settingsTheme": "المظهر",
+  "settingsThemeSystem": "حسب النظام",
+  "settingsThemeLight": "فاتح",
+  "settingsThemeDark": "داكن",
+  "settingsAbout": "حول التطبيق",
+  "settingsVersion": "الإصدار {version}",
+  "@settingsVersion": {
+    "placeholders": {
+      "version": {
+        "type": "String"
+      }
+    }
+  },
+  "examTimeRemaining": "الوقت المتبقي {time}",
+  "@examTimeRemaining": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "galleryTitle": "معرض التصميم",
+  "galleryButtons": "الأزرار",
+  "galleryInputs": "حقول الإدخال",
+  "galleryCards": "البطاقات",
+  "galleryIndicators": "المؤشرات",
+  "galleryStates": "الحالات",
+  "galleryOverlays": "النوافذ المنبثقة",
+  "galleryNavigation": "التنقل",
+  "galleryLoading": "جاري التحميل",
+  "galleryShowSheet": "عرض ورقة سفلية",
+  "galleryShowDialog": "عرض نافذة تأكيد",
+  "galleryShowSnackbar": "عرض إشعار",
+  "gallerySampleCourse": "أساسيات الرياضيات للصف العاشر",
+  "gallerySampleTeacher": "أ. سامي الحداد",
+  "gallerySampleText": "نص تجريبي",
+  "gallerySampleMessage": "هذه رسالة تجريبية لعرض المكوّن",
+  "exploreTitle": "استكشف",
+  "exploreSearchHint": "ابحث عن دورة...",
+  "exploreCategories": "التصنيفات",
+  "exploreSections": "الأقسام",
+  "exploreSubjects": "المواد",
+  "exploreViewGrid": "عرض شبكي",
+  "exploreViewList": "عرض قائمة",
+  "exploreCategoryEmpty": "لا توجد أقسام أو مواد هنا بعد",
+  "exploreSearchResults": "نتائج البحث",
+  "exploreSearchSignIn": "سجّل الدخول للبحث في الدورات",
+  "subjectElective": "اختيارية",
+  "subjectCoursesTitle": "دورات المادة",
+  "subjectNoCourses": "لا توجد دورات في هذه المادة بعد",
+  "categorySubcategories": "{count, plural, =0{لا أقسام فرعية} =1{قسم فرعي واحد} other{{count} أقسام فرعية}}",
+  "@categorySubcategories": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "coursesTitle": "الدورات",
+  "coursesEmptyTitle": "لا توجد دورات مطابقة",
+  "coursesFiltersTitle": "تصفية الدورات",
+  "coursesFilterFeatured": "مميزة",
+  "coursesFilterTrending": "الأكثر رواجاً",
+  "coursesFilterCategory": "التصنيف",
+  "coursesFilterSubject": "المادة",
+  "coursesFilterTeacher": "المدرّس",
+  "coursesFiltersActive": "{count} تصفية مفعّلة",
+  "@coursesFiltersActive": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "coursesSearchHint": "ابحث في الدورات",
+  "courseTabContent": "المحتوى",
+  "courseTabAbout": "حول الدورة",
+  "courseTabReviews": "التقييمات",
+  "courseReviewsPlaceholder": "تقييمات الطلاب ستتوفر قريباً",
+  "courseWhatYouLearn": "ماذا ستتعلّم",
+  "courseRequirements": "المتطلبات",
+  "courseDescription": "وصف الدورة",
+  "courseNoContent": "لم يُضف محتوى لهذه الدورة بعد",
+  "courseTeacher": "المدرّس",
+  "courseStudents": "الطلاب",
+  "courseDuration": "المدة",
+  "courseLevel": "المستوى",
+  "courseVideos": "{count} فيديو",
+  "@courseVideos": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "coursePdfs": "{count} ملف PDF",
+  "@coursePdfs": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "courseLive": "مباشر",
+  "difficultyBeginner": "مبتدئ",
+  "difficultyIntermediate": "متوسط",
+  "difficultyAdvanced": "متقدم",
+  "courseUnitExams": "{count, plural, =1{اختبار واحد} other{{count} اختبارات}}",
+  "@courseUnitExams": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "courseUnitExamsTitle": "اختبارات الوحدة",
+  "courseExamMeta": "{questions} أسئلة · {minutes} دقيقة",
+  "@courseExamMeta": {
+    "placeholders": {
+      "questions": {
+        "type": "int"
+      },
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "lessonFree": "مجاني",
+  "lessonLockedTitle": "الدرس مقفل",
+  "lessonLockedEnroll": "فعّل الدورة للوصول إلى هذا الدرس.",
+  "lessonLockedSequence": "أكمل الدرس السابق أولاً لفتح هذا الدرس.",
+  "lessonTypeVideo": "فيديو",
+  "lessonTypePdf": "ملف PDF",
+  "lessonTypeOther": "درس",
+  "courseSequentialHint": "دروس هذه الدورة تُفتح بالترتيب",
+  "courseActionStartFree": "ابدأ التعلّم",
+  "courseActionContinue": "متابعة التعلّم",
+  "courseActionActivate": "تفعيل ببطاقة",
+  "courseActionBuy": "شراء بـ {price}",
+  "@courseActionBuy": {
+    "placeholders": {
+      "price": {
+        "type": "String"
+      }
+    }
+  },
+  "courseActionSignIn": "سجّل الدخول للتسجيل",
+  "courseProgressLabel": "أنجزت {percent}",
+  "@courseProgressLabel": {
+    "placeholders": {
+      "percent": {
+        "type": "String"
+      }
+    }
+  },
+  "activationTitle": "تفعيل الدورة",
+  "activationSubtitle": "أدخل الرمز المطبوع على بطاقتك",
+  "activationCodeLabel": "رمز البطاقة",
+  "activationAction": "تفعيل",
+  "activationSuccessTitle": "تم تفعيل الدورة!",
+  "activationSuccessBody": "يمكنك الآن الوصول إلى «{name}».",
+  "@activationSuccessBody": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "activationStart": "ابدأ الآن",
+  "activationFailed": "تعذّر تفعيل البطاقة. تأكد من الرمز وحاول مجدداً.",
+  "purchaseVerifying": "جارٍ تأكيد عملية الشراء…",
+  "purchaseSuccess": "تم شراء الدورة بنجاح",
+  "purchasePending": "عملية الشراء بانتظار الموافقة",
+  "purchaseCancelled": "تم إلغاء عملية الشراء",
+  "purchaseFailed": "تعذّر إتمام عملية الشراء",
+  "purchaseVerifyFailed": "تم الدفع لكن تعذّر تأكيده. أعد المحاولة ولن يُخصم منك مجدداً.",
+  "purchaseRestore": "استعادة المشتريات",
+  "myCoursesTitle": "دوراتي",
+  "myCoursesEmptyTitle": "لم تسجّل في أي دورة بعد",
+  "myCoursesEmptyBody": "تصفّح الدورات وفعّل بطاقتك لتبدأ.",
+  "myCoursesBrowse": "تصفّح الدورات",
+  "myCoursesCompleted": "مكتملة",
+  "myCoursesContinue": "متابعة",
+  "myCoursesGate": "سجّل الدخول لعرض دوراتك وتقدّمك.",
+  "teachersTitle": "المدرّسون",
+  "teachersSearchHint": "ابحث عن مدرّس",
+  "teachersEmpty": "لا يوجد مدرّسون مطابقون",
+  "teacherVerified": "مدرّس موثّق",
+  "teacherExperience": "{years} سنوات خبرة",
+  "@teacherExperience": {
+    "placeholders": {
+      "years": {
+        "type": "int"
+      }
+    }
+  },
+  "teacherQualification": "المؤهل العلمي",
+  "teacherAbout": "نبذة عن المدرّس",
+  "teacherCoursesTitle": "دورات المدرّس",
+  "teacherNoCourses": "لا توجد دورات لهذا المدرّس بعد",
+  "libraryTitle": "المكتبة",
+  "libraryPreviousExams": "امتحانات سابقة",
+  "libraryQuestionBanks": "بنوك الأسئلة",
+  "libraryWorksheets": "أوراق العمل",
+  "librarySearchHint": "ابحث في الملفات",
+  "libraryYear": "السنة",
+  "librarySubject": "المادة",
+  "libraryEmptyTitle": "لا توجد ملفات",
+  "libraryPages": "{count} صفحة",
+  "@libraryPages": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "libraryOpen": "فتح",
+  "libraryDownloading": "جارٍ التنزيل {percent}",
+  "@libraryDownloading": {
+    "placeholders": {
+      "percent": {
+        "type": "String"
+      }
+    }
+  },
+  "libraryDownloaded": "محفوظ للقراءة دون اتصال",
+  "libraryDownloadFailed": "تعذّر تنزيل الملف",
+  "libraryShareFile": "مشاركة الملف",
+  "pdfViewerFailed": "تعذّر عرض الملف",
+  "pdfPageOf": "صفحة {current} من {total}",
+  "@pdfPageOf": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "lessonPrevious": "الدرس السابق",
+  "lessonNext": "الدرس التالي",
+  "lessonMarkComplete": "تحديد كمكتمل",
+  "lessonCompleted": "تم إكمال الدرس",
+  "lessonResumeFrom": "سنكمل من حيث توقفت",
+  "lessonNoVideo": "لا يتوفر فيديو لهذا الدرس",
+  "lessonNoFile": "لا يتوفر ملف لهذا الدرس",
+  "lessonOpenFile": "فتح الملف",
+  "lessonForbiddenTitle": "لا يمكنك فتح هذا الدرس بعد",
+  "lessonForbiddenFallback": "فعّل الدورة أو أكمل الدروس السابقة للمتابعة.",
+  "lessonBackToCourse": "العودة إلى الدورة",
+  "lessonCoursePercent": "تقدّم الدورة {percent}",
+  "@lessonCoursePercent": {
+    "placeholders": {
+      "percent": {
+        "type": "String"
+      }
+    }
+  },
+  "examsTitle": "الاختبارات",
+  "examsSearchHint": "ابحث في الاختبارات",
+  "examsEmptyTitle": "لا توجد اختبارات",
+  "examsQuickAccess": "الاختبارات",
+  "examDetailTitle": "تفاصيل الاختبار",
+  "examDurationMinutes": "{minutes} دقيقة",
+  "@examDurationMinutes": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "examTotalMarks": "{marks} درجة",
+  "@examTotalMarks": {
+    "placeholders": {
+      "marks": {
+        "type": "String"
+      }
+    }
+  },
+  "examPassMarks": "درجة النجاح {marks}",
+  "@examPassMarks": {
+    "placeholders": {
+      "marks": {
+        "type": "String"
+      }
+    }
+  },
+  "examInstructions": "التعليمات",
+  "examRulesTitle": "قبل أن تبدأ",
+  "examRuleTimer": "يبدأ العدّ التنازلي فور بدء الاختبار ولا يتوقف.",
+  "examRuleAutosave": "تُحفظ إجاباتك تلقائياً ويمكنك المتابعة إن أُغلق التطبيق.",
+  "examRuleAutoSubmit": "يُسلَّم الاختبار تلقائياً عند انتهاء الوقت.",
+  "examStart": "ابدأ الاختبار",
+  "examResume": "متابعة الاختبار",
+  "examStartConfirmTitle": "بدء الاختبار؟",
+  "examStartConfirmBody": "مدة الاختبار {minutes} دقيقة وسيبدأ العدّ فوراً.",
+  "@examStartConfirmBody": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "examSignInToStart": "سجّل الدخول لبدء الاختبار",
+  "examQuestionOf": "السؤال {current} من {total}",
+  "@examQuestionOf": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "examMarksLabel": "{marks} درجة",
+  "@examMarksLabel": {
+    "placeholders": {
+      "marks": {
+        "type": "String"
+      }
+    }
+  },
+  "examNavigator": "قائمة الأسئلة",
+  "examLegendAnswered": "مُجاب",
+  "examLegendUnanswered": "غير مُجاب",
+  "examLegendFlagged": "للمراجعة",
+  "examFlag": "تأشير للمراجعة",
+  "examUnflag": "إزالة التأشير",
+  "examClearAnswer": "مسح الإجابة",
+  "examSubmit": "تسليم الاختبار",
+  "examSubmitConfirmTitle": "تسليم الاختبار؟",
+  "examSubmitConfirmUnanswered": "لديك {count, plural, =1{سؤال واحد} other{{count} أسئلة}} بدون إجابة. هل تريد التسليم؟",
+  "@examSubmitConfirmUnanswered": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "examSubmitConfirmAll": "أجبت عن كل الأسئلة. هل تريد التسليم؟",
+  "examLeaveTitle": "مغادرة الاختبار؟",
+  "examLeaveBody": "يستمر الوقت بالعدّ وتُحفظ إجاباتك. يمكنك العودة لمتابعة الاختبار.",
+  "examLeaveConfirm": "مغادرة",
+  "examTimeUpTitle": "انتهى الوقت",
+  "examTimeUpBody": "جارٍ تسليم إجاباتك تلقائياً…",
+  "examSubmitFailed": "تعذّر تسليم الاختبار. إجاباتك محفوظة، أعد المحاولة.",
+  "examSubmitting": "جارٍ التسليم…",
+  "examNoQuestions": "لا توجد أسئلة في هذا الاختبار",
+  "examResultTitle": "نتيجة الاختبار",
+  "examPassed": "ناجح",
+  "examFailed": "لم تجتز الاختبار",
+  "examCongrats": "أحسنت! لقد اجتزت الاختبار",
+  "examKeepGoing": "لا بأس، راجع الدروس وحاول مجدداً",
+  "examTryAgain": "حاول مجدداً",
+  "examScoreOf": "{score} من {total}",
+  "@examScoreOf": {
+    "placeholders": {
+      "score": {
+        "type": "String"
+      },
+      "total": {
+        "type": "String"
+      }
+    }
+  },
+  "examStatCorrect": "صحيحة",
+  "examStatWrong": "خاطئة",
+  "examStatUnanswered": "بدون إجابة",
+  "examTimeTaken": "الوقت المستغرق: {minutes} دقيقة",
+  "@examTimeTaken": {
+    "placeholders": {
+      "minutes": {
+        "type": "String"
+      }
+    }
+  },
+  "examReviewTitle": "مراجعة الإجابات",
+  "examYourAnswer": "إجابتك",
+  "examCorrectAnswer": "الإجابة الصحيحة",
+  "examExplanation": "الشرح",
+  "examNotAnswered": "لم تجب عن هذا السؤال",
+  "examShareResult": "مشاركة النتيجة",
+  "examShareText": "حصلت على {percent} في اختبار «{title}» عبر أكاديمية ابن زيدون 🎓",
+  "@examShareText": {
+    "placeholders": {
+      "percent": {
+        "type": "String"
+      },
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "examResultReviewHidden": "ستظهر مراجعة الإجابات عند نشر النتائج.",
+  "myExamsTitle": "اختباراتي",
+  "myExamsEmptyTitle": "لم تخض أي اختبار بعد",
+  "myExamsEmptyBody": "ابدأ أول اختبار لك وتابع تقدّمك هنا.",
+  "myExamsGate": "سجّل الدخول لعرض سجل اختباراتك.",
+  "examAttemptDate": "بتاريخ {date}",
+  "@examAttemptDate": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "homeGreetingMorning": "صباح الخير",
+  "homeGreetingEvening": "مساء الخير",
+  "homeGreetingSubtitle": "ماذا تريد أن تتعلم اليوم؟",
+  "homeCategories": "التصنيفات",
+  "homeFeatured": "دورات مميزة",
+  "homeTrending": "الأكثر رواجاً",
+  "homeTopTeachers": "أفضل المدرّسين",
+  "homeQuickExams": "الاختبارات",
+  "homeQuickTeachers": "المدرّسون",
+  "homeQuickMyExams": "نتائجي",
+  "homeQuickCourses": "كل الدورات",
+  "homeStatStudents": "طالب",
+  "homeStatTeachers": "مدرّس",
+  "homeStatCourses": "دورة",
+  "homeSectionFailed": "تعذّر تحميل هذا القسم",
+  "homeGuestPrompt": "سجّل الدخول لرؤية الدورات المميزة والمدرّسين وتقدّمك.",
+  "notificationsTooltip": "الإشعارات",
+  "notificationsBadgeLabel": "{count} إشعارات غير مقروءة",
+  "@notificationsBadgeLabel": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "notificationsTitle": "الإشعارات",
+  "notificationsMarkAllRead": "تحديد الكل كمقروء",
+  "notificationsEmptyTitle": "لا توجد إشعارات",
+  "notificationsEmptyBody": "سنعلمك هنا بكل جديد في دوراتك واختباراتك.",
+  "notificationsGate": "سجّل الدخول لعرض إشعاراتك.",
+  "notificationPermissionTitle": "ابقَ على اطّلاع",
+  "notificationPermissionBody": "فعّل الإشعارات لتصلك تنبيهات الدروس الجديدة ونتائج الاختبارات وتذكيرات الدراسة.",
+  "notificationPermissionEnable": "تفعيل الإشعارات",
+  "notificationPermissionLater": "ليس الآن",
+  "profileTitle": "حسابي",
+  "profileGate": "سجّل الدخول لإدارة حسابك وتتبّع تقدّمك.",
+  "profileStatCourses": "دورات",
+  "profileStatCompleted": "مكتملة",
+  "profileStatExams": "اختبارات",
+  "profileStatLessons": "دروس",
+  "profileStatHours": "ساعات",
+  "profileStatPassed": "ناجح",
+  "profileEdit": "تعديل الملف الشخصي",
+  "profileChangePassword": "تغيير كلمة المرور",
+  "profileMyExams": "سجل اختباراتي",
+  "profileExamsCenter": "مركز الاختبارات",
+  "profileTeachers": "المدرّسون",
+  "profileSettings": "الإعدادات",
+  "profileLogout": "تسجيل الخروج",
+  "profileLogoutConfirmTitle": "تسجيل الخروج؟",
+  "profileLogoutConfirmBody": "يمكنك تسجيل الدخول مجدداً في أي وقت.",
+  "profileDeleteAccount": "حذف الحساب",
+  "profileDeleteStep1Title": "حذف حسابك؟",
+  "profileDeleteStep1Body": "سيتم تعطيل حسابك وتسجيل خروجك من جميع الأجهزة.",
+  "profileDeleteStep2Title": "تأكيد نهائي",
+  "profileDeleteStep2Body": "لا يمكن التراجع عن هذا الإجراء. هل أنت متأكد تماماً؟",
+  "profileDeleteConfirm": "نعم، احذف حسابي",
+  "profileDeleteFailed": "تعذّر حذف الحساب. حاول مجدداً.",
+  "profileSectionAccount": "الحساب",
+  "profileSectionLearning": "التعلّم",
+  "profileSectionMore": "المزيد",
+  "profileEditTitle": "تعديل الملف الشخصي",
+  "profileEditSaved": "تم حفظ التغييرات",
+  "profileFieldNationalId": "الرقم الوطني",
+  "profileFieldGender": "الجنس",
+  "profileGenderMale": "ذكر",
+  "profileGenderFemale": "أنثى",
+  "profileFieldBirthDate": "تاريخ الميلاد",
+  "profileFieldNationality": "الجنسية",
+  "profileAvatarChange": "تغيير الصورة",
+  "profileAvatarTooLarge": "حجم الصورة يجب ألا يتجاوز 2 ميغابايت",
+  "profileAvatarFromGallery": "من المعرض",
+  "profileAvatarFromCamera": "من الكاميرا",
+  "passwordChangeTitle": "تغيير كلمة المرور",
+  "passwordChangeSaved": "تم تغيير كلمة المرور",
+  "passwordChangeAction": "حفظ كلمة المرور",
+  "passwordChangeWrongCurrent": "كلمة المرور الحالية غير صحيحة",
+  "schoolAnnouncements": "الإعلانات",
+  "schoolConduct": "ميثاق السلوك",
+  "schoolPlanner": "المخطط الدراسي",
+  "schoolPlannerNotes": "ملاحظات اليوم",
+  "schoolPlannerWeekly": "الأسبوع",
+  "schoolSchedules": "الجداول",
+  "schoolScheduleClass": "جدول الحصص",
+  "schoolScheduleExam": "جدول الاختبارات",
+  "conductSign": "أوافق وأوقّع",
+  "conductSigned": "تم توقيع الميثاق",
+  "siblingSwitchTitle": "تبديل الحساب",
+  "siblingSwitchHint": "أدخل رقم الحساب المرتبط",
+  "siblingSwitchAction": "تبديل",
+  "siblingSwitched": "تم تبديل الحساب",
+  "homeGreetingWithName": "{greeting}، {name}",
+  "@homeGreetingWithName": {
+    "placeholders": {
+      "greeting": {
+        "type": "String"
+      },
+      "name": {
+        "type": "String"
+      }
+    }
+  }
+}
