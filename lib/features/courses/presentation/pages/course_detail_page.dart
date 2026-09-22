@@ -107,42 +107,43 @@ class _CourseDetailViewState extends State<_CourseDetailView> {
                       onRetry: () => bloc.add(const CourseDetailRequested()),
                     ),
                   )
-                else ...[
-                  SliverToBoxAdapter(child: CourseSummary(detail: detail)),
+                else
                   SliverToBoxAdapter(
-                    child: Padding(
-                      padding: AppSpacing.pagePadding,
-                      child: AppSegmentedControl<int>(
-                        segments: {
-                          0: l10n.courseTabContent,
-                          1: l10n.courseTabAbout,
-                          2: l10n.courseTabReviews,
-                        },
-                        selected: _tab,
-                        onChanged: (value) => setState(() => _tab = value),
+                    child: ContentConstraint(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          CourseSummary(detail: detail),
+                          Padding(
+                            padding: AppSpacing.pagePadding,
+                            child: AppSegmentedControl<int>(
+                              segments: {
+                                0: l10n.courseTabContent,
+                                1: l10n.courseTabAbout,
+                                2: l10n.courseTabReviews,
+                              },
+                              selected: _tab,
+                              onChanged: (value) =>
+                                  setState(() => _tab = value),
+                            ),
+                          ),
+                          const SizedBox(height: AppSpacing.lg),
+                          AnimatedSwitcher(
+                            duration: AppMotion.medium,
+                            child: KeyedSubtree(
+                              key: ValueKey(_tab),
+                              child: switch (_tab) {
+                                0 => CourseContentTab(state: state),
+                                1 => CourseAboutTab(detail: detail),
+                                _ => const CourseReviewsTab(),
+                              },
+                            ),
+                          ),
+                          const SizedBox(height: AppSpacing.massive),
+                        ],
                       ),
                     ),
                   ),
-                  const SliverToBoxAdapter(
-                    child: SizedBox(height: AppSpacing.lg),
-                  ),
-                  SliverToBoxAdapter(
-                    child: AnimatedSwitcher(
-                      duration: AppMotion.medium,
-                      child: KeyedSubtree(
-                        key: ValueKey(_tab),
-                        child: switch (_tab) {
-                          0 => CourseContentTab(state: state),
-                          1 => CourseAboutTab(detail: detail),
-                          _ => const CourseReviewsTab(),
-                        },
-                      ),
-                    ),
-                  ),
-                  const SliverToBoxAdapter(
-                    child: SizedBox(height: AppSpacing.massive),
-                  ),
-                ],
               ],
             ),
           ),

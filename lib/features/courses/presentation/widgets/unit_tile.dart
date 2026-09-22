@@ -45,6 +45,7 @@ class ExamRowData {
 
 class UnitTile extends StatelessWidget {
   const UnitTile({
+    required this.index,
     required this.title,
     required this.lessons,
     required this.exams,
@@ -54,6 +55,8 @@ class UnitTile extends StatelessWidget {
     super.key,
   });
 
+  /// 1-based position, shown as a small numbered badge.
+  final int index;
   final String title;
   final List<LessonRowData> lessons;
   final List<ExamRowData> exams;
@@ -63,6 +66,8 @@ class UnitTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
+    final completedCount = lessons.where((l) => l.isCompleted).length;
     return AppCard(
       padding: EdgeInsets.zero,
       child: Theme(
@@ -71,13 +76,29 @@ class UnitTile extends StatelessWidget {
           initiallyExpanded: initiallyExpanded,
           tilePadding: const EdgeInsetsDirectional.symmetric(
             horizontal: AppSpacing.lg,
-            vertical: AppSpacing.xs,
+            vertical: AppSpacing.sm,
+          ),
+          childrenPadding: const EdgeInsetsDirectional.only(
+            bottom: AppSpacing.sm,
           ),
           shape: const Border(),
           collapsedShape: const Border(),
-          title: Text(title, style: context.text.titleSmall),
+          leading: _IndexBadge(
+            index: index,
+            done: completedCount == lessons.length && lessons.isNotEmpty,
+          ),
+          title: Text(
+            title,
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
+            style: context.text.titleSmall,
+          ),
           subtitle: Text(
-            context.l10n.commonLessonsCount(lessons.length),
+            completedCount > 0
+                ? '$completedCount/${lessons.length} · ${l10n.commonLessonsCount(lessons.length)}'
+                : l10n.commonLessonsCount(lessons.length),
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
             style: context.text.bodySmall?.copyWith(
               color: context.colors.onSurfaceVariant,
             ),
@@ -85,7 +106,7 @@ class UnitTile extends StatelessWidget {
           children: [
             for (final lesson in lessons)
               _LessonRow(lesson: lesson, onTap: () => onLessonTap(lesson)),
-            if (exams.isNotEmpty)
+            if (exams.isNotEmpty) ...[
               Padding(
                 padding: const EdgeInsetsDirectional.fromSTEB(
                   AppSpacing.lg,
@@ -96,19 +117,53 @@ class UnitTile extends StatelessWidget {
                 child: Align(
                   alignment: AlignmentDirectional.centerStart,
                   child: Text(
-                    context.l10n.courseUnitExamsTitle,
+                    l10n.courseUnitExamsTitle,
                     style: context.text.labelLarge?.copyWith(
                       color: context.colors.onSurfaceVariant,
                     ),
                   ),
                 ),
               ),
-            for (final exam in exams)
-              _ExamRow(exam: exam, onTap: () => onExamTap(exam)),
-            const SizedBox(height: AppSpacing.sm),
+              for (final exam in exams)
+                _ExamRow(exam: exam, onTap: () => onExamTap(exam)),
+            ],
           ],
         ),
       ),
+    );
+  }
+}
+
+class _IndexBadge extends StatelessWidget {
+  const _IndexBadge({required this.index, required this.done});
+
+  final int index;
+  final bool done;
+
+  @override
+  Widget build(BuildContext context) {
+    final palette = context.palette;
+    final scheme = context.colors;
+    return Container(
+      width: AppSizes.avatarSm - AppSpacing.xs,
+      height: AppSizes.avatarSm - AppSpacing.xs,
+      alignment: Alignment.center,
+      decoration: BoxDecoration(
+        color: done ? palette.successContainer : scheme.primaryContainer,
+        shape: BoxShape.circle,
+      ),
+      child: done
+          ? Icon(
+              Icons.check_rounded,
+              size: AppSizes.iconSm,
+              color: palette.onSuccessContainer,
+            )
+          : Text(
+              '$index',
+              style: context.text.labelLarge?.copyWith(
+                color: scheme.onPrimaryContainer,
+              ),
+            ),
     );
   }
 }
@@ -134,74 +189,109 @@ class _LessonRow extends StatelessWidget {
       LessonType.other => l10n.lessonTypeOther,
     };
     final muted = context.colors.onSurfaceVariant;
-    return InkWell(
-      onTap: onTap,
-      child: ConstrainedBox(
-        constraints: const BoxConstraints(minHeight: AppSizes.touchTarget),
-        child: Padding(
-          padding: const EdgeInsetsDirectional.symmetric(
-            horizontal: AppSpacing.lg,
-            vertical: AppSpacing.sm,
-          ),
-          child: Row(
-            children: [
-              Icon(typeIcon, color: locked ? muted : context.colors.primary),
-              const SizedBox(width: AppSpacing.md),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      lesson.title,
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                      style: context.text.bodyMedium?.copyWith(
-                        color: locked ? muted : null,
-                      ),
-                    ),
-                    Text(
-                      lesson.durationMinutes > 0
-                          ? '$typeLabel · ${l10n.commonMinutes(lesson.durationMinutes)}'
-                          : typeLabel,
-                      style: context.text.bodySmall?.copyWith(color: muted),
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(width: AppSpacing.sm),
-              if (lesson.isCompleted)
-                Icon(Icons.check_circle_rounded, color: context.palette.success)
-              else if (locked)
+    return Material(
+      type: MaterialType.transparency,
+      child: InkWell(
+        onTap: onTap,
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(minHeight: AppSizes.touchTarget),
+          child: Padding(
+            padding: const EdgeInsetsDirectional.symmetric(
+              horizontal: AppSpacing.lg,
+              vertical: AppSpacing.sm,
+            ),
+            child: Row(
+              children: [
                 Icon(
-                  lesson.isLockedBySequence
-                      ? Icons.lock_clock_rounded
-                      : Icons.lock_rounded,
-                  color: muted,
-                  size: AppSizes.iconMd,
-                )
-              else if (lesson.isFree)
-                DecoratedBox(
-                  decoration: BoxDecoration(
-                    color: context.palette.successContainer,
-                    borderRadius: AppRadii.chipRadius,
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsetsDirectional.symmetric(
-                      horizontal: AppSpacing.sm,
-                      vertical: AppSpacing.xxs,
-                    ),
-                    child: Text(
-                      l10n.lessonFree,
-                      style: context.text.labelSmall?.copyWith(
-                        color: context.palette.onSuccessContainer,
+                  typeIcon,
+                  color: lesson.isCompleted
+                      ? context.palette.success
+                      : locked
+                      ? muted
+                      : context.colors.primary,
+                ),
+                const SizedBox(width: AppSpacing.md),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        lesson.title,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        style: context.text.bodyMedium?.copyWith(
+                          color: locked ? muted : null,
+                        ),
                       ),
-                    ),
+                      Text(
+                        lesson.durationMinutes > 0
+                            ? '$typeLabel · ${l10n.commonMinutes(lesson.durationMinutes)}'
+                            : typeLabel,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: context.text.bodySmall?.copyWith(color: muted),
+                      ),
+                    ],
                   ),
                 ),
-            ],
+                const SizedBox(width: AppSpacing.sm),
+                _LessonTrailing(lesson: lesson, locked: locked),
+              ],
+            ),
           ),
         ),
       ),
+    );
+  }
+}
+
+class _LessonTrailing extends StatelessWidget {
+  const _LessonTrailing({required this.lesson, required this.locked});
+
+  final LessonRowData lesson;
+  final bool locked;
+
+  @override
+  Widget build(BuildContext context) {
+    if (lesson.isCompleted) {
+      return Icon(Icons.check_circle_rounded, color: context.palette.success);
+    }
+    if (locked) {
+      return Icon(
+        lesson.isLockedBySequence
+            ? Icons.lock_clock_rounded
+            : Icons.lock_rounded,
+        color: context.colors.onSurfaceVariant,
+        size: AppSizes.iconMd,
+      );
+    }
+    if (lesson.isFree) {
+      final palette = context.palette;
+      return DecoratedBox(
+        decoration: BoxDecoration(
+          color: palette.successContainer,
+          borderRadius: AppRadii.chipRadius,
+        ),
+        child: Padding(
+          padding: const EdgeInsetsDirectional.symmetric(
+            horizontal: AppSpacing.sm,
+            vertical: AppSpacing.xxs,
+          ),
+          child: Text(
+            context.l10n.lessonFree,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            style: context.text.labelSmall?.copyWith(
+              color: palette.onSuccessContainer,
+            ),
+          ),
+        ),
+      );
+    }
+    return Icon(
+      Icons.play_circle_outline_rounded,
+      color: context.colors.onSurfaceVariant,
+      size: AppSizes.iconMd,
     );
   }
 }
@@ -214,38 +304,52 @@ class _ExamRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onTap,
-      child: ConstrainedBox(
-        constraints: const BoxConstraints(minHeight: AppSizes.touchTarget),
-        child: Padding(
-          padding: const EdgeInsetsDirectional.symmetric(
-            horizontal: AppSpacing.lg,
-            vertical: AppSpacing.sm,
-          ),
-          child: Row(
-            children: [
-              Icon(Icons.quiz_outlined, color: context.colors.tertiary),
-              const SizedBox(width: AppSpacing.md),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(exam.title, style: context.text.bodyMedium),
-                    Text(
-                      context.l10n.courseExamMeta(exam.questions, exam.minutes),
-                      style: context.text.bodySmall?.copyWith(
-                        color: context.colors.onSurfaceVariant,
+    return Material(
+      type: MaterialType.transparency,
+      child: InkWell(
+        onTap: onTap,
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(minHeight: AppSizes.touchTarget),
+          child: Padding(
+            padding: const EdgeInsetsDirectional.symmetric(
+              horizontal: AppSpacing.lg,
+              vertical: AppSpacing.sm,
+            ),
+            child: Row(
+              children: [
+                Icon(Icons.quiz_outlined, color: context.colors.tertiary),
+                const SizedBox(width: AppSpacing.md),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        exam.title,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: context.text.bodyMedium,
                       ),
-                    ),
-                  ],
+                      Text(
+                        context.l10n.courseExamMeta(
+                          exam.questions,
+                          exam.minutes,
+                        ),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: context.text.bodySmall?.copyWith(
+                          color: context.colors.onSurfaceVariant,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-              const Icon(
-                Icons.arrow_forward_ios_rounded,
-                size: AppSizes.iconSm,
-              ),
-            ],
+                Icon(
+                  Icons.arrow_forward_ios_rounded,
+                  size: AppSizes.iconSm,
+                  color: context.colors.onSurfaceVariant,
+                ),
+              ],
+            ),
           ),
         ),
       ),

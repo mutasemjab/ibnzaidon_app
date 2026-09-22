@@ -16,6 +16,7 @@ final class CourseDetailState extends Equatable {
     this.units,
     this.progress,
     this.failure,
+    this.unitsResolved = false,
   });
 
   final ResourceStatus status;
@@ -25,6 +26,13 @@ final class CourseDetailState extends Equatable {
   final CourseUnits? units;
   final CourseProgress? progress;
   final Failure? failure;
+
+  /// `true` once the lock-aware `units` follow-up call has finished (whether
+  /// it succeeded or not). The public `courses/{id}` response doesn't always
+  /// carry `is_enrolled`, so the true enrollment status is only known after
+  /// this — the action bar uses it to avoid flashing "Activate" for a split
+  /// second on a course the student already owns.
+  final bool unitsResolved;
 
   bool get isLoading =>
       status == ResourceStatus.initial || status == ResourceStatus.loading;
@@ -57,16 +65,25 @@ final class CourseDetailState extends Equatable {
     Failure? failure,
     bool clearFailure = false,
     bool clearUnits = false,
+    bool? unitsResolved,
   }) => CourseDetailState(
     status: status ?? this.status,
     detail: detail ?? this.detail,
     units: clearUnits ? null : units ?? this.units,
     progress: progress ?? this.progress,
     failure: clearFailure ? null : failure ?? this.failure,
+    unitsResolved: unitsResolved ?? this.unitsResolved,
   );
 
   @override
-  List<Object?> get props => [status, detail, units, progress, failure];
+  List<Object?> get props => [
+    status,
+    detail,
+    units,
+    progress,
+    failure,
+    unitsResolved,
+  ];
 }
 
 sealed class CourseDetailEvent {
@@ -124,7 +141,13 @@ class CourseDetailBloc extends Bloc<CourseDetailEvent, CourseDetailState> {
     required bool showLoading,
   }) async {
     if (showLoading) {
-      emit(state.copyWith(status: ResourceStatus.loading, clearFailure: true));
+      emit(
+        state.copyWith(
+          status: ResourceStatus.loading,
+          clearFailure: true,
+          unitsResolved: false,
+        ),
+      );
     }
     final detailResult = await _getCourseDetail(courseId);
     if (emit.isDone) return;
@@ -158,6 +181,7 @@ class CourseDetailBloc extends Bloc<CourseDetailEvent, CourseDetailState> {
       state.copyWith(
         units: unitsResult.toNullable(),
         progress: progressResult?.toNullable(),
+        unitsResolved: true,
       ),
     );
   }

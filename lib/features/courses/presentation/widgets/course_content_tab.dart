@@ -15,17 +15,16 @@ class CourseContentTab extends StatelessWidget {
 
   final CourseDetailState state;
 
-  @override
-  Widget build(BuildContext context) {
+  List<_UnitRows> _rows() {
     final detail = state.detail!;
     final completed = state.progress?.completedLessonIds ?? const <int>{};
     final units = state.units?.units;
-    final rows = <_UnitRows>[
-      if (units != null)
+    if (units != null) {
+      return [
         for (final unit in units)
           _UnitRows(
-            unit.title,
-            [
+            title: unit.title,
+            lessons: [
               for (final lesson in unit.lessons)
                 LessonRowData(
                   id: lesson.id,
@@ -38,7 +37,7 @@ class CourseContentTab extends StatelessWidget {
                   isCompleted: completed.contains(lesson.id),
                 ),
             ],
-            [
+            exams: [
               for (final exam in unit.exams)
                 ExamRowData(
                   id: exam.id,
@@ -47,28 +46,38 @@ class CourseContentTab extends StatelessWidget {
                   minutes: exam.durationMinutes,
                 ),
             ],
-          )
-      else
-        for (final unit in detail.units)
-          _UnitRows(
-            unit.title,
-            [
-              for (final lesson in unit.lessons)
-                LessonRowData(
-                  id: lesson.id,
-                  title: lesson.title,
-                  type: lesson.type,
-                  durationMinutes: lesson.durationMinutes,
-                  isFree: lesson.isFree,
-                  isLocked: !lesson.isFree,
-                ),
-            ],
-            const [],
           ),
+      ];
+    }
+    // Guest / units call failed: fall back to the public outline. Anything
+    // that isn't marked free is treated as locked (needs activation).
+    return [
+      for (final unit in detail.units)
+        _UnitRows(
+          title: unit.title,
+          lessons: [
+            for (final lesson in unit.lessons)
+              LessonRowData(
+                id: lesson.id,
+                title: lesson.title,
+                type: lesson.type,
+                durationMinutes: lesson.durationMinutes,
+                isFree: lesson.isFree,
+                isLocked: !lesson.isFree,
+              ),
+          ],
+          exams: const [],
+        ),
     ];
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final detail = state.detail!;
+    final rows = _rows();
     if (rows.isEmpty) {
       return SizedBox(
-        height: 260,
+        height: 220,
         child: EmptyState(message: context.l10n.courseNoContent),
       );
     }
@@ -76,30 +85,14 @@ class CourseContentTab extends StatelessWidget {
       padding: AppSpacing.pagePadding,
       child: Column(
         children: [
-          if (detail.sequential)
-            Padding(
-              padding: const EdgeInsetsDirectional.only(bottom: AppSpacing.md),
-              child: Row(
-                children: [
-                  Icon(
-                    Icons.info_outline_rounded,
-                    size: AppSizes.iconMd,
-                    color: context.colors.primary,
-                  ),
-                  const SizedBox(width: AppSpacing.sm),
-                  Expanded(
-                    child: Text(
-                      context.l10n.courseSequentialHint,
-                      style: context.text.bodySmall,
-                    ),
-                  ),
-                ],
-              ),
-            ),
+          if (detail.sequential) const _SequentialHint(),
           for (var i = 0; i < rows.length; i++)
             Padding(
-              padding: const EdgeInsetsDirectional.only(bottom: AppSpacing.md),
+              padding: EdgeInsetsDirectional.only(
+                bottom: i == rows.length - 1 ? 0 : AppSpacing.md,
+              ),
               child: UnitTile(
+                index: i + 1,
                 title: rows[i].title,
                 lessons: rows[i].lessons,
                 exams: rows[i].exams,
@@ -124,11 +117,43 @@ class CourseContentTab extends StatelessWidget {
 }
 
 class _UnitRows {
-  const _UnitRows(this.title, this.lessons, this.exams);
+  const _UnitRows({
+    required this.title,
+    required this.lessons,
+    required this.exams,
+  });
 
   final String title;
   final List<LessonRowData> lessons;
   final List<ExamRowData> exams;
+}
+
+class _SequentialHint extends StatelessWidget {
+  const _SequentialHint();
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsetsDirectional.only(bottom: AppSpacing.md),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Icon(
+            Icons.info_outline_rounded,
+            size: AppSizes.iconMd,
+            color: context.colors.primary,
+          ),
+          const SizedBox(width: AppSpacing.sm),
+          Expanded(
+            child: Text(
+              context.l10n.courseSequentialHint,
+              style: context.text.bodySmall,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 }
 
 /// Explains *why* a lesson is locked (needs activation vs. previous lesson).
