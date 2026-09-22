@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ibnzaidon/app/router/app_routes.dart';
@@ -48,6 +49,7 @@ class _LessonView extends StatefulWidget {
 
 class _LessonViewState extends State<_LessonView> {
   late final ScreenSecurity _security = getIt<ScreenSecurity>();
+  bool _isFullScreen = false;
 
   @override
   void initState() {
@@ -57,8 +59,36 @@ class _LessonViewState extends State<_LessonView> {
 
   @override
   void dispose() {
+    if (_isFullScreen) _setOrientationAndChrome(fullScreen: false);
     _security.disable();
     super.dispose();
+  }
+
+  /// Toggling `youtube_player_flutter`'s own fullscreen mode only resizes
+  /// the player widget — it doesn't touch this page's AppBar, orientation,
+  /// or system bars, which is what actually makes fullscreen feel
+  /// fullscreen. So this page owns that state itself and swaps its own
+  /// Scaffold instead.
+  void _setOrientationAndChrome({required bool fullScreen}) {
+    if (fullScreen) {
+      SystemChrome.setPreferredOrientations([
+        DeviceOrientation.landscapeLeft,
+        DeviceOrientation.landscapeRight,
+      ]);
+      SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
+    } else {
+      SystemChrome.setPreferredOrientations([
+        DeviceOrientation.portraitUp,
+        DeviceOrientation.portraitDown,
+      ]);
+      SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
+    }
+  }
+
+  void _toggleFullScreen() {
+    final next = !_isFullScreen;
+    setState(() => _isFullScreen = next);
+    _setOrientationAndChrome(fullScreen: next);
   }
 
   void _showForbidden(BuildContext context, String? serverMessage) {
@@ -107,16 +137,33 @@ class _LessonViewState extends State<_LessonView> {
           previous.isForbidden != current.isForbidden && current.isForbidden,
       listener: (context, state) =>
           _showForbidden(context, state.failure?.message),
-      builder: (context, state) => Scaffold(
-        appBar: AppBar(
-          title: Text(
-            state.lesson?.title ?? '',
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
+      builder: (context, state) {
+        final content = _body(context, state);
+        if (_isFullScreen) {
+          return PopScope(
+            canPop: false,
+            onPopInvokedWithResult: (didPop, _) {
+              // Back while fullscreen exits fullscreen first, matching the
+              // native YouTube app, instead of leaving the lesson outright.
+              if (!didPop) _toggleFullScreen();
+            },
+            child: Scaffold(
+              backgroundColor: Colors.black,
+              body: SafeArea(child: content),
+            ),
+          );
+        }
+        return Scaffold(
+          appBar: AppBar(
+            title: Text(
+              state.lesson?.title ?? '',
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+            ),
           ),
-        ),
-        body: _body(context, state),
-      ),
+          body: content,
+        );
+      },
     );
   }
 
@@ -139,7 +186,12 @@ class _LessonViewState extends State<_LessonView> {
       );
     }
     return switch (lesson.type) {
-      LessonType.video => _VideoLesson(state: state, courseId: widget.courseId),
+      LessonType.video => _VideoLesson(
+        state: state,
+        courseId: widget.courseId,
+        isFullScreen: _isFullScreen,
+        onToggleFullScreen: _toggleFullScreen,
+      ),
       LessonType.pdf => _PdfLesson(state: state),
       LessonType.other => _OtherLesson(state: state),
     };
@@ -147,10 +199,17 @@ class _LessonViewState extends State<_LessonView> {
 }
 
 class _VideoLesson extends StatelessWidget {
-  const _VideoLesson({required this.state, required this.courseId});
+  const _VideoLesson({
+    required this.state,
+    required this.courseId,
+    required this.isFullScreen,
+    required this.onToggleFullScreen,
+  });
 
   final LessonPlayerState state;
   final int courseId;
+  final bool isFullScreen;
+  final VoidCallback onToggleFullScreen;
 
   @override
   Widget build(BuildContext context) {
@@ -164,16 +223,20 @@ class _VideoLesson extends StatelessWidget {
     return YoutubeLessonPlayer(
       videoUrl: url,
       startSeconds: state.resumeSeconds,
-      builder: (context, player) => ContentConstraint(
-        maxWidth: 960,
-        child: ListView(
-          children: [
-            player,
-            _LessonInfo(state: state),
-            LessonNavigation(state: state, courseId: courseId),
-          ],
-        ),
-      ),
+      isFullScreen: isFullScreen,
+      onToggleFullScreen: onToggleFullScreen,
+      builder: (context, player) => isFullScreen
+          ? Center(child: player)
+          : ContentConstraint(
+              maxWidth: 960,
+              child: ListView(
+                children: [
+                  player,
+                  _LessonInfo(state: state),
+                  LessonNavigation(state: state, courseId: courseId),
+                ],
+              ),
+            ),
     );
   }
 }

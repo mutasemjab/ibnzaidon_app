@@ -304,15 +304,20 @@ class GuestPrompt extends StatelessWidget {
   }
 }
 
-/// Skeleton for the course carousels while `GET home` loads.
+/// Skeleton for the course carousels while `GET home` loads. Mirrors
+/// [CourseCarousel]'s horizontal scroller so it never overflows narrow
+/// screens the way a bare `Row` would.
 class CarouselSkeleton extends StatelessWidget {
   const CarouselSkeleton({super.key});
 
   @override
-  Widget build(BuildContext context) => const Padding(
-    padding: AppSpacing.pagePadding,
-    child: Row(
-      children: [
+  Widget build(BuildContext context) => SizedBox(
+    height: 268,
+    child: ListView(
+      scrollDirection: Axis.horizontal,
+      padding: AppSpacing.pagePadding,
+      physics: const NeverScrollableScrollPhysics(),
+      children: const [
         CourseCardSkeleton(),
         SizedBox(width: AppSpacing.md),
         CourseCardSkeleton(),

@@ -19,6 +19,16 @@ class ContentConstraint extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Align(
     alignment: Alignment.topCenter,
+    // Without `heightFactor`, Align expands to fill *all* height its parent
+    // offers. That's invisible inside scrollable slivers (they hand down
+    // unbounded height, so Align falls back to the child's size anyway),
+    // but it silently ate the whole screen when this wrapped a
+    // `bottomNavigationBar`: Scaffold gives that slot a bounded height, so
+    // Align claimed nearly all of it and pushed the actual button to the
+    // top of that claimed space — squeezing `body` to almost nothing above
+    // it. Pinning height to the child's own size makes this safe in every
+    // context that uses it.
+    heightFactor: 1,
     child: ConstrainedBox(
       constraints: BoxConstraints(maxWidth: maxWidth),
       child: child,

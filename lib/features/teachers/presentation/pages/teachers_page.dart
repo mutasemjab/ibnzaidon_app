@@ -61,7 +61,11 @@ class _TeachersView extends StatelessWidget {
           Expanded(
             child: PagedBlocView<TeachersBloc, Teacher, TeachersQuery>(
               gridColumns: context.gridColumns + 1,
-              gridChildAspectRatio: 0.72,
+              // A verified teacher's real card content (avatar + up to a
+              // two-line name + specialization + rating chip) needs close
+              // to 180dp of height at a 3-column phone width; 0.72 only
+              // gave it ~140dp, which is what was overflowing.
+              gridChildAspectRatio: 0.56,
               skeletonBuilder: (_) => const Column(
                 children: [
                   SkeletonBox(

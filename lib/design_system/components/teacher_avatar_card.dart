@@ -74,26 +74,40 @@ class TeacherAvatarCard extends StatelessWidget {
                   ],
                 ),
                 const SizedBox(height: AppSpacing.sm),
-                Text(
-                  name,
-                  maxLines: 2,
-                  textAlign: TextAlign.center,
-                  overflow: TextOverflow.ellipsis,
-                  style: context.text.titleSmall,
-                ),
-                if (specialization != null)
-                  Text(
-                    specialization!,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: context.text.bodySmall?.copyWith(
-                      color: context.colors.onSurfaceVariant,
-                    ),
+                // This card sits in a fixed-aspect-ratio grid cell, so the
+                // column above (and everything below it) only has as much
+                // height as the grid gives it. A verified teacher with a
+                // two-line name, a specialization and a rating chip all at
+                // once easily exceeds that with real (longer) Arabic names —
+                // Flexible lets this block shrink instead of overflowing.
+                Flexible(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        name,
+                        maxLines: 2,
+                        textAlign: TextAlign.center,
+                        overflow: TextOverflow.ellipsis,
+                        style: context.text.titleSmall,
+                      ),
+                      if (specialization != null)
+                        Text(
+                          specialization!,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: context.text.bodySmall?.copyWith(
+                            color: context.colors.onSurfaceVariant,
+                          ),
+                        ),
+                      if (rating != null) ...[
+                        const SizedBox(height: AppSpacing.xs),
+                        RatingChip(rating: rating!),
+                      ],
+                    ],
                   ),
-                if (rating != null) ...[
-                  const SizedBox(height: AppSpacing.xs),
-                  RatingChip(rating: rating!),
-                ],
+                ),
               ],
             ),
           ),

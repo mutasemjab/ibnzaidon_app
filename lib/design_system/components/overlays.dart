@@ -73,7 +73,7 @@ class _SheetFrame extends StatelessWidget {
                       child: Text(title!, style: context.text.titleLarge),
                     ),
                   ),
-                Flexible(child: child),
+                Flexible(child: SingleChildScrollView(child: child)),
               ],
             ),
           ),

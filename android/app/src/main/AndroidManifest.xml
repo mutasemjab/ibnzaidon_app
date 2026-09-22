@@ -33,6 +33,15 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
+        <!-- Impeller's default Vulkan backend fails to allocate a compositing
+             buffer for hybrid-composition PlatformViews (the YouTube/webview
+             player) on some Android GPU drivers — gralloc4 rejects the
+             requested format, so the WebView surface never gets a valid size
+             and the embedded player's own resize call throws. OpenGL ES
+             doesn't hit this. -->
+        <meta-data
+            android:name="io.flutter.embedding.android.ImpellerBackend"
+            android:value="opengles" />
     </application>
     <!-- Required to query activities that can process text, see:
          https://developer.android.com/training/package-visibility and

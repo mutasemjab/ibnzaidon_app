@@ -6,14 +6,23 @@ import 'package:ibnzaidon/core/utils/context_extensions.dart';
 import 'package:ibnzaidon/design_system/components/state_views.dart';
 import 'package:ibnzaidon/features/lessons/presentation/bloc/lesson_player_bloc.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
-import 'package:youtube_player_iframe/youtube_player_iframe.dart';
+import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
-/// YouTube iframe player: resumes at [startSeconds], keeps the screen awake
-/// while mounted, reports position to [LessonPlayerBloc] and signals the end.
+/// YouTube player: resumes at [startSeconds], keeps the screen awake while
+/// playing, reports position to [LessonPlayerBloc] and signals the end.
+///
+/// Uses `youtube_player_flutter` (a WebView wrapper around YouTube's classic
+/// player, not the iframe postMessage API) rather than
+/// `youtube_player_iframe` — the iframe API's resize handshake reliably
+/// crashed (`Cannot read properties of undefined (reading 'setSize')`) on
+/// some Android GPU/WebView combinations before the platform view ever got a
+/// valid surface.
 class YoutubeLessonPlayer extends StatefulWidget {
   const YoutubeLessonPlayer({
     required this.videoUrl,
     required this.startSeconds,
+    required this.isFullScreen,
+    required this.onToggleFullScreen,
     required this.builder,
     super.key,
   });
@@ -21,8 +30,14 @@ class YoutubeLessonPlayer extends StatefulWidget {
   final String videoUrl;
   final int startSeconds;
 
+  /// Owned by the page, not this widget — going truly fullscreen means
+  /// hiding the page's own AppBar and forcing landscape, which only the
+  /// page can do.
+  final bool isFullScreen;
+  final VoidCallback onToggleFullScreen;
+
   /// Receives the player widget so the page can lay out the rest of the
-  /// screen (the scaffold handles fullscreen + rotation).
+  /// screen.
   final Widget Function(BuildContext context, Widget player) builder;
 
   @override
@@ -30,49 +45,50 @@ class YoutubeLessonPlayer extends StatefulWidget {
 }
 
 class _YoutubeLessonPlayerState extends State<YoutubeLessonPlayer> {
+  late final LessonPlayerBloc _bloc = context.read<LessonPlayerBloc>();
   YoutubePlayerController? _controller;
-  StreamSubscription<YoutubeVideoState>? _positionSubscription;
-  StreamSubscription<YoutubePlayerValue>? _stateSubscription;
+  Timer? _progressTimer;
+  bool _endReported = false;
 
   @override
   void initState() {
     super.initState();
-    final videoId = YoutubePlayerController.convertUrlToId(widget.videoUrl);
+    final videoId = YoutubePlayer.convertUrlToId(widget.videoUrl);
     if (videoId == null) return;
-    final controller = YoutubePlayerController.fromVideoId(
-      videoId: videoId,
-      startSeconds: widget.startSeconds.toDouble(),
-      autoPlay: true,
-      params: const YoutubePlayerParams(
-        showFullscreenButton: true,
-        strictRelatedVideos: true,
-        enableCaption: false,
+    final controller = YoutubePlayerController(
+      initialVideoId: videoId,
+      flags: YoutubePlayerFlags(
+        autoPlay: true,
+        startAt: widget.startSeconds,
       ),
-    );
-    final bloc = context.read<LessonPlayerBloc>();
-    _positionSubscription = controller.videoStateStream.listen(
-      (state) => bloc.add(LessonPositionChanged(state.position.inSeconds)),
-    );
-    _stateSubscription = controller.stream.listen((value) {
-      if (value.playerState == PlayerState.ended) {
-        bloc.add(const LessonPlaybackEnded());
-      }
-      if (value.playerState == PlayerState.playing) {
-        unawaited(WakelockPlus.enable());
-      } else if (value.playerState == PlayerState.paused ||
-          value.playerState == PlayerState.ended) {
-        unawaited(WakelockPlus.disable());
+    )..addListener(_onPlayerValueChanged);
+    _controller = controller;
+    _progressTimer = Timer.periodic(const Duration(seconds: 3), (_) {
+      if (controller.value.isPlaying) {
+        _bloc.add(LessonPositionChanged(controller.value.position.inSeconds));
       }
     });
-    _controller = controller;
+  }
+
+  void _onPlayerValueChanged() {
+    final state = _controller?.value.playerState;
+    if (state == PlayerState.playing) {
+      unawaited(WakelockPlus.enable());
+    } else if (state == PlayerState.paused || state == PlayerState.ended) {
+      unawaited(WakelockPlus.disable());
+    }
+    if (state == PlayerState.ended && !_endReported) {
+      _endReported = true;
+      _bloc.add(const LessonPlaybackEnded());
+    }
   }
 
   @override
   void dispose() {
-    unawaited(_positionSubscription?.cancel());
-    unawaited(_stateSubscription?.cancel());
+    _progressTimer?.cancel();
+    _controller?.removeListener(_onPlayerValueChanged);
     unawaited(WakelockPlus.disable());
-    unawaited(_controller?.close());
+    _controller?.dispose();
     super.dispose();
   }
 
@@ -85,10 +101,33 @@ class _YoutubeLessonPlayerState extends State<YoutubeLessonPlayer> {
         icon: Icons.videocam_off_rounded,
       );
     }
-    return YoutubePlayerScaffold(
-      controller: controller,
-      aspectRatio: 16 / 9,
-      builder: widget.builder,
+    return widget.builder(
+      context,
+      AspectRatio(
+        aspectRatio: 16 / 9,
+        child: YoutubePlayer(
+          controller: controller,
+          showVideoProgressIndicator: true,
+          bottomActions: [
+            const SizedBox(width: 14),
+            const CurrentPosition(),
+            const SizedBox(width: 8),
+            const ProgressBar(isExpanded: true),
+            const RemainingDuration(),
+            const PlaybackSpeedButton(),
+            IconButton(
+              padding: EdgeInsets.zero,
+              icon: Icon(
+                widget.isFullScreen
+                    ? Icons.fullscreen_exit_rounded
+                    : Icons.fullscreen_rounded,
+                color: Colors.white,
+              ),
+              onPressed: widget.onToggleFullScreen,
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

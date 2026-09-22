@@ -46,7 +46,12 @@ class _ActivationFormState extends State<_ActivationForm> {
   }
 
   void _submit() {
-    final code = _controller.text.trim();
+    // The field displays the code broken into groups of 4 with dashes for
+    // readability (CardCodeFormatter), but those dashes are purely visual —
+    // sending them to the server corrupted codes that aren't naturally
+    // grouped that way, so the raw text always needs normalizing back down
+    // to the actual alphanumeric code first.
+    final code = CardCodeFormatter.normalize(_controller.text);
     if (code.isEmpty) return;
     context.read<ActivationBloc>().add(ActivationSubmitted(code));
   }

@@ -44,7 +44,14 @@ class _AppButtonState extends State<AppButton> {
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
     final (background, foreground, border) = switch (widget.variant) {
-      AppButtonVariant.primary => (null, scheme.onPrimary, null),
+      // The primary gradient is the same fixed dark blue in both themes
+      // (see AppColors.signatureGradient), but `scheme.onPrimary` flips to a
+      // near-black navy in dark mode — meant to sit on the *light* blue
+      // `scheme.primary` used elsewhere there, not on this fixed dark
+      // gradient. That mismatch made primary-button labels unreadable in
+      // dark mode. `onHero` is the fixed white token made for gradient
+      // surfaces exactly like this one.
+      AppButtonVariant.primary => (null, AppColors.onHero, null),
       AppButtonVariant.secondary => (
         scheme.primaryContainer,
         scheme.onPrimaryContainer,
