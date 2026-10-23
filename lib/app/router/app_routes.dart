@@ -12,6 +12,7 @@ abstract final class AppRoutes {
   static const profile = '/profile';
 
   static const courses = '/courses';
+  static const packages = '/packages';
   static const exams = '/exams';
   static const myExams = '/my-exams';
   static const teachers = '/teachers';
@@ -23,6 +24,11 @@ abstract final class AppRoutes {
   static const pdfViewer = '/pdf-viewer';
   static const designGallery = '/design-gallery';
 
+  static const termsConditions = '/terms-conditions';
+  static const privacyPolicy = '/privacy-policy';
+  static const aboutUs = '/about-us';
+  static const technicalSupport = '/technical-support';
+
   static const announcements = '/announcements';
   static const conduct = '/conduct';
   static const planner = '/planner';
@@ -31,6 +37,7 @@ abstract final class AppRoutes {
   static const categoryPattern = '/category/:id';
   static const subjectPattern = '/subject/:id';
   static const coursePattern = '/course/:id';
+  static const packagePattern = '/package/:id';
   static const lessonPattern = '/course/:courseId/lesson/:lessonId';
   static const examPattern = '/exam/:id';
   static const examTakePattern = '/exam/:id/take';
@@ -40,6 +47,7 @@ abstract final class AppRoutes {
   static String category(int id) => '/category/$id';
   static String subject(int id) => '/subject/$id';
   static String course(int id) => '/course/$id';
+  static String package(int id) => '/package/$id';
   static String lesson(int courseId, int lessonId) =>
       '/course/$courseId/lesson/$lessonId';
   static String exam(int id) => '/exam/$id';

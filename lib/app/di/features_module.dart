@@ -41,6 +41,10 @@ import 'package:ibnzaidon/features/home/data/repositories/home_repository_impl.d
 import 'package:ibnzaidon/features/home/domain/repositories/home_repository.dart';
 import 'package:ibnzaidon/features/home/domain/usecases/get_home_use_case.dart';
 import 'package:ibnzaidon/features/home/presentation/bloc/home_bloc.dart';
+import 'package:ibnzaidon/features/info_pages/data/repositories/info_pages_repository_impl.dart';
+import 'package:ibnzaidon/features/info_pages/domain/repositories/info_pages_repository.dart';
+import 'package:ibnzaidon/features/info_pages/domain/usecases/info_pages_usecases.dart';
+import 'package:ibnzaidon/features/info_pages/presentation/bloc/info_page_bloc.dart';
 import 'package:ibnzaidon/features/lessons/data/repositories/lessons_repository_impl.dart';
 import 'package:ibnzaidon/features/lessons/domain/repositories/lessons_repository.dart';
 import 'package:ibnzaidon/features/lessons/domain/usecases/lessons_usecases.dart';
@@ -59,6 +63,13 @@ import 'package:ibnzaidon/features/notifications/domain/services/push_messaging_
 import 'package:ibnzaidon/features/notifications/domain/usecases/notifications_usecases.dart';
 import 'package:ibnzaidon/features/notifications/presentation/bloc/notifications_bloc.dart';
 import 'package:ibnzaidon/features/notifications/presentation/bloc/push_setup_cubit.dart';
+import 'package:ibnzaidon/features/packages/data/datasources/packages_remote_data_source.dart';
+import 'package:ibnzaidon/features/packages/data/repositories/packages_repository_impl.dart';
+import 'package:ibnzaidon/features/packages/domain/repositories/packages_repository.dart';
+import 'package:ibnzaidon/features/packages/domain/usecases/packages_usecases.dart';
+import 'package:ibnzaidon/features/packages/presentation/bloc/package_activation_bloc.dart';
+import 'package:ibnzaidon/features/packages/presentation/bloc/package_detail_bloc.dart';
+import 'package:ibnzaidon/features/packages/presentation/bloc/packages_bloc.dart';
 import 'package:ibnzaidon/features/profile/data/repositories/profile_repository_impl.dart';
 import 'package:ibnzaidon/features/profile/domain/repositories/profile_repository.dart';
 import 'package:ibnzaidon/features/profile/domain/usecases/profile_usecases.dart';
@@ -85,6 +96,7 @@ void registerFeatureModules() {
   _registerCatalog();
   _registerHome();
   _registerCourses();
+  _registerPackages();
   _registerLessons();
   _registerExams();
   _registerTeachers();
@@ -93,6 +105,7 @@ void registerFeatureModules() {
   _registerProfile();
   _registerSchoolLife();
   _registerSplashOnboarding();
+  _registerInfoPages();
 }
 
 void _registerAppSettings() {
@@ -108,6 +121,17 @@ void _registerAppSettings() {
     ..registerLazySingleton(() => ReadLastKnownAppSettingsUseCase(getIt()))
     ..registerLazySingleton<AppSettingsCubit>(
       () => AppSettingsCubit(getAppSettings: getIt(), readLastKnown: getIt()),
+    );
+}
+
+void _registerInfoPages() {
+  getIt
+    ..registerLazySingleton<InfoPagesRepository>(
+      () => InfoPagesRepositoryImpl(client: getIt(), guard: getIt()),
+    )
+    ..registerLazySingleton(() => GetInfoPageUseCase(getIt()))
+    ..registerFactoryParam<InfoPageBloc, String, void>(
+      (slug, _) => InfoPageBloc(getIt(), slug: slug),
     );
 }
 
@@ -218,6 +242,28 @@ void _registerCourses() {
         verifyPurchase: getIt(),
         config: getIt<AppConfig>(),
         appAccountToken: () => getIt<AuthBloc>().state.student?.appAccountToken,
+      ),
+    );
+}
+
+void _registerPackages() {
+  getIt
+    ..registerLazySingleton(() => PackagesRemoteDataSource(getIt()))
+    ..registerLazySingleton<PackagesRepository>(
+      () => PackagesRepositoryImpl(remote: getIt(), guard: getIt()),
+    )
+    ..registerLazySingleton(() => GetPackagesUseCase(getIt()))
+    ..registerLazySingleton(() => GetPackageDetailUseCase(getIt()))
+    ..registerLazySingleton(() => ActivatePackageUseCase(getIt()))
+    ..registerFactory(() => PackagesBloc(getIt()))
+    ..registerFactoryParam<PackageDetailBloc, int, void>(
+      (id, _) => PackageDetailBloc(getIt(), packageId: id),
+    )
+    ..registerFactoryParam<PackageActivationBloc, int, List<int>>(
+      (packageId, courseIds) => PackageActivationBloc(
+        packageId: packageId,
+        courseIds: courseIds,
+        activatePackage: getIt(),
       ),
     );
 }

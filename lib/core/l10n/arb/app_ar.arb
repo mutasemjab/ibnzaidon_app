@@ -155,6 +155,11 @@
       }
     }
   },
+  "aboutUsTitle": "من نحن",
+  "technicalSupportTitle": "الدعم الفني",
+  "termsConditionsTitle": "الشروط والأحكام",
+  "privacyPolicyTitle": "سياسة الخصوصية",
+  "homeWhatsappContact": "تواصل معنا عبر واتساب",
   "examTimeRemaining": "الوقت المتبقي {time}",
   "@examTimeRemaining": {
     "placeholders": {
@@ -312,6 +317,32 @@
   },
   "activationStart": "ابدأ الآن",
   "activationFailed": "تعذّر تفعيل البطاقة. تأكد من الرمز وحاول مجدداً.",
+  "homeQuickPackages": "الباقات",
+  "packagesTitle": "الباقات",
+  "packagesEmptyTitle": "لا توجد باقات متاحة حالياً",
+  "packagePickHint": "{count, plural, =1{اختر دورة واحدة من القائمة} =2{اختر دورتين من القائمة} other{اختر {count} دورات من القائمة}}",
+  "@packagePickHint": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "packageSelectedCount": "{selected} من {total} محددة",
+  "@packageSelectedCount": {
+    "placeholders": {
+      "selected": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "packageActionActivate": "تفعيل الباقة",
+  "packageActivationTitle": "تفعيل الباقة",
+  "packageActivationSuccessTitle": "تم تفعيل الباقة!",
+  "packageActivationSuccessBody": "يمكنك الآن الوصول إلى الدورات المختارة.",
   "purchaseVerifying": "جارٍ تأكيد عملية الشراء…",
   "purchaseSuccess": "تم شراء الدورة بنجاح",
   "purchasePending": "عملية الشراء بانتظار الموافقة",

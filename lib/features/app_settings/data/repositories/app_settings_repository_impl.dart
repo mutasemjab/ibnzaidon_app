@@ -17,20 +17,27 @@ class AppSettingsRepositoryImpl implements AppSettingsRepository {
        _guard = guard;
 
   static const _showPriceKey = 'app_settings.show_price';
+  static const _whatsappKey = 'app_settings.whatsapp_number';
 
   final ApiClient _client;
   final KeyValueStore _store;
   final ApiGuard _guard;
 
   @override
-  AppSettings get lastKnown =>
-      AppSettings(showPrice: _store.getBool(_showPriceKey) ?? false);
+  AppSettings get lastKnown => AppSettings(
+    showPrice: _store.getBool(_showPriceKey) ?? false,
+    whatsappNumber: _store.getString(_whatsappKey),
+  );
 
   @override
   Future<Either<Failure, AppSettings>> fetch() => _guard.run(() async {
     final envelope = await _client.get('app-settings', optionalAuth: true);
     final showPrice = parseBool(envelope.dataMap['show_price']);
+    final whatsappNumber = tryParseString(envelope.dataMap['whatsapp_number']);
     await _store.setBool(_showPriceKey, value: showPrice);
-    return AppSettings(showPrice: showPrice);
+    if (whatsappNumber != null) {
+      await _store.setString(_whatsappKey, whatsappNumber);
+    }
+    return AppSettings(showPrice: showPrice, whatsappNumber: whatsappNumber);
   });
 }

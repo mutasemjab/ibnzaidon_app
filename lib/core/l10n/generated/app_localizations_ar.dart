@@ -350,6 +350,21 @@ class AppLocalizationsAr extends AppLocalizations {
   }
 
   @override
+  String get aboutUsTitle => 'من نحن';
+
+  @override
+  String get technicalSupportTitle => 'الدعم الفني';
+
+  @override
+  String get termsConditionsTitle => 'الشروط والأحكام';
+
+  @override
+  String get privacyPolicyTitle => 'سياسة الخصوصية';
+
+  @override
+  String get homeWhatsappContact => 'تواصل معنا عبر واتساب';
+
+  @override
   String examTimeRemaining(String time) {
     return 'الوقت المتبقي $time';
   }
@@ -634,6 +649,45 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get activationFailed =>
       'تعذّر تفعيل البطاقة. تأكد من الرمز وحاول مجدداً.';
+
+  @override
+  String get homeQuickPackages => 'الباقات';
+
+  @override
+  String get packagesTitle => 'الباقات';
+
+  @override
+  String get packagesEmptyTitle => 'لا توجد باقات متاحة حالياً';
+
+  @override
+  String packagePickHint(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'اختر $count دورات من القائمة',
+      two: 'اختر دورتين من القائمة',
+      one: 'اختر دورة واحدة من القائمة',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String packageSelectedCount(int selected, int total) {
+    return '$selected من $total محددة';
+  }
+
+  @override
+  String get packageActionActivate => 'تفعيل الباقة';
+
+  @override
+  String get packageActivationTitle => 'تفعيل الباقة';
+
+  @override
+  String get packageActivationSuccessTitle => 'تم تفعيل الباقة!';
+
+  @override
+  String get packageActivationSuccessBody =>
+      'يمكنك الآن الوصول إلى الدورات المختارة.';
 
   @override
   String get purchaseVerifying => 'جارٍ تأكيد عملية الشراء…';

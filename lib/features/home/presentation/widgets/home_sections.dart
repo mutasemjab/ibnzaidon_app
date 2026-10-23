@@ -135,6 +135,11 @@ class QuickActions extends StatelessWidget {
       (Icons.school_rounded, l10n.homeQuickCourses, AppRoutes.courses),
       (Icons.groups_rounded, l10n.homeQuickTeachers, AppRoutes.teachers),
       (Icons.emoji_events_rounded, l10n.homeQuickMyExams, AppRoutes.myExams),
+      (
+        Icons.card_giftcard_rounded,
+        l10n.homeQuickPackages,
+        AppRoutes.packages,
+      ),
     ];
     return Padding(
       padding: AppSpacing.pagePadding,

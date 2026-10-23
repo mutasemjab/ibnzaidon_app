@@ -353,6 +353,21 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String get aboutUsTitle => 'About Us';
+
+  @override
+  String get technicalSupportTitle => 'Technical Support';
+
+  @override
+  String get termsConditionsTitle => 'Terms & Conditions';
+
+  @override
+  String get privacyPolicyTitle => 'Privacy Policy';
+
+  @override
+  String get homeWhatsappContact => 'Contact us on WhatsApp';
+
+  @override
   String examTimeRemaining(String time) {
     return 'Time remaining $time';
   }
@@ -639,6 +654,44 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get activationFailed =>
       'Couldn\'t activate the card. Check the code and try again.';
+
+  @override
+  String get homeQuickPackages => 'Packages';
+
+  @override
+  String get packagesTitle => 'Packages';
+
+  @override
+  String get packagesEmptyTitle => 'No packages available right now';
+
+  @override
+  String packagePickHint(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Pick $count courses from the list',
+      one: 'Pick 1 course from the list',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String packageSelectedCount(int selected, int total) {
+    return '$selected of $total selected';
+  }
+
+  @override
+  String get packageActionActivate => 'Activate package';
+
+  @override
+  String get packageActivationTitle => 'Activate package';
+
+  @override
+  String get packageActivationSuccessTitle => 'Package activated!';
+
+  @override
+  String get packageActivationSuccessBody =>
+      'You now have access to the courses you picked.';
 
   @override
   String get purchaseVerifying => 'Confirming your purchase…';

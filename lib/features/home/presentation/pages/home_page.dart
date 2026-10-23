@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ibnzaidon/app/router/app_routes.dart';
 import 'package:ibnzaidon/core/bloc/resource_bloc.dart';
@@ -10,6 +11,7 @@ import 'package:ibnzaidon/design_system/components/app_network_image.dart';
 import 'package:ibnzaidon/design_system/components/layout_helpers.dart';
 import 'package:ibnzaidon/design_system/components/skeleton.dart';
 import 'package:ibnzaidon/design_system/tokens/app_tokens.dart';
+import 'package:ibnzaidon/features/app_settings/presentation/bloc/app_settings_cubit.dart';
 import 'package:ibnzaidon/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:ibnzaidon/features/catalog/domain/entities/catalog_entities.dart';
 import 'package:ibnzaidon/features/catalog/presentation/bloc/catalog_blocs.dart';
@@ -18,6 +20,7 @@ import 'package:ibnzaidon/features/home/presentation/bloc/home_bloc.dart';
 import 'package:ibnzaidon/features/home/presentation/widgets/banner_carousel.dart';
 import 'package:ibnzaidon/features/home/presentation/widgets/home_sections.dart';
 import 'package:ibnzaidon/features/notifications/presentation/widgets/notification_bell.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -75,6 +78,7 @@ class _HomeView extends StatelessWidget {
         }
       },
       child: Scaffold(
+        floatingActionButton: const _WhatsAppFab(),
         body: AppRefreshIndicator(
           onRefresh: () => _refresh(context, signedIn: signedIn),
           child: CustomScrollView(
@@ -249,6 +253,42 @@ class _HomeContent extends StatelessWidget {
           ],
         );
       },
+    );
+  }
+}
+
+/// Opens a WhatsApp chat with the number the server sends in `app-settings`.
+/// Hidden until that number is known (guest devices that never fetched it,
+/// or a server that hasn't set one yet).
+class _WhatsAppFab extends StatelessWidget {
+  const _WhatsAppFab();
+
+  static const _whatsappGreen = Color(0xFF25D366);
+
+  @override
+  Widget build(BuildContext context) {
+    final cubit = getIt<AppSettingsCubit>();
+    return BlocBuilder<AppSettingsCubit, bool>(
+      bloc: cubit,
+      builder: (context, _) {
+        final number = cubit.whatsappNumber;
+        if (number == null) return const SizedBox.shrink();
+        return FloatingActionButton(
+          heroTag: 'homeWhatsappFab',
+          backgroundColor: _whatsappGreen,
+          tooltip: context.l10n.homeWhatsappContact,
+          onPressed: () => _openWhatsApp(number),
+          child: const FaIcon(FontAwesomeIcons.whatsapp, color: Colors.white),
+        );
+      },
+    );
+  }
+
+  Future<void> _openWhatsApp(String number) async {
+    final digits = number.replaceAll(RegExp('[^0-9]'), '');
+    await launchUrl(
+      Uri.parse('https://wa.me/$digits'),
+      mode: LaunchMode.externalApplication,
     );
   }
 }

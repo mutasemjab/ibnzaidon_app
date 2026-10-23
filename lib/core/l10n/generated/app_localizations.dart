@@ -692,6 +692,36 @@ abstract class AppLocalizations {
   /// **'الإصدار {version}'**
   String settingsVersion(String version);
 
+  /// No description provided for @aboutUsTitle.
+  ///
+  /// In ar, this message translates to:
+  /// **'من نحن'**
+  String get aboutUsTitle;
+
+  /// No description provided for @technicalSupportTitle.
+  ///
+  /// In ar, this message translates to:
+  /// **'الدعم الفني'**
+  String get technicalSupportTitle;
+
+  /// No description provided for @termsConditionsTitle.
+  ///
+  /// In ar, this message translates to:
+  /// **'الشروط والأحكام'**
+  String get termsConditionsTitle;
+
+  /// No description provided for @privacyPolicyTitle.
+  ///
+  /// In ar, this message translates to:
+  /// **'سياسة الخصوصية'**
+  String get privacyPolicyTitle;
+
+  /// No description provided for @homeWhatsappContact.
+  ///
+  /// In ar, this message translates to:
+  /// **'تواصل معنا عبر واتساب'**
+  String get homeWhatsappContact;
+
   /// No description provided for @examTimeRemaining.
   ///
   /// In ar, this message translates to:
@@ -1195,6 +1225,60 @@ abstract class AppLocalizations {
   /// In ar, this message translates to:
   /// **'تعذّر تفعيل البطاقة. تأكد من الرمز وحاول مجدداً.'**
   String get activationFailed;
+
+  /// No description provided for @homeQuickPackages.
+  ///
+  /// In ar, this message translates to:
+  /// **'الباقات'**
+  String get homeQuickPackages;
+
+  /// No description provided for @packagesTitle.
+  ///
+  /// In ar, this message translates to:
+  /// **'الباقات'**
+  String get packagesTitle;
+
+  /// No description provided for @packagesEmptyTitle.
+  ///
+  /// In ar, this message translates to:
+  /// **'لا توجد باقات متاحة حالياً'**
+  String get packagesEmptyTitle;
+
+  /// No description provided for @packagePickHint.
+  ///
+  /// In ar, this message translates to:
+  /// **'{count, plural, =1{اختر دورة واحدة من القائمة} =2{اختر دورتين من القائمة} other{اختر {count} دورات من القائمة}}'**
+  String packagePickHint(int count);
+
+  /// No description provided for @packageSelectedCount.
+  ///
+  /// In ar, this message translates to:
+  /// **'{selected} من {total} محددة'**
+  String packageSelectedCount(int selected, int total);
+
+  /// No description provided for @packageActionActivate.
+  ///
+  /// In ar, this message translates to:
+  /// **'تفعيل الباقة'**
+  String get packageActionActivate;
+
+  /// No description provided for @packageActivationTitle.
+  ///
+  /// In ar, this message translates to:
+  /// **'تفعيل الباقة'**
+  String get packageActivationTitle;
+
+  /// No description provided for @packageActivationSuccessTitle.
+  ///
+  /// In ar, this message translates to:
+  /// **'تم تفعيل الباقة!'**
+  String get packageActivationSuccessTitle;
+
+  /// No description provided for @packageActivationSuccessBody.
+  ///
+  /// In ar, this message translates to:
+  /// **'يمكنك الآن الوصول إلى الدورات المختارة.'**
+  String get packageActivationSuccessBody;
 
   /// No description provided for @purchaseVerifying.
   ///

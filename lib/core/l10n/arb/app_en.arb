@@ -99,6 +99,11 @@
   "settingsThemeDark": "Dark",
   "settingsAbout": "About",
   "settingsVersion": "Version {version}",
+  "aboutUsTitle": "About Us",
+  "technicalSupportTitle": "Technical Support",
+  "termsConditionsTitle": "Terms & Conditions",
+  "privacyPolicyTitle": "Privacy Policy",
+  "homeWhatsappContact": "Contact us on WhatsApp",
   "examTimeRemaining": "Time remaining {time}",
   "galleryTitle": "Design gallery",
   "galleryButtons": "Buttons",
@@ -183,6 +188,32 @@
   "activationSuccessBody": "You now have access to “{name}”.",
   "activationStart": "Start now",
   "activationFailed": "Couldn't activate the card. Check the code and try again.",
+  "homeQuickPackages": "Packages",
+  "packagesTitle": "Packages",
+  "packagesEmptyTitle": "No packages available right now",
+  "packagePickHint": "{count, plural, =1{Pick 1 course from the list} other{Pick {count} courses from the list}}",
+  "@packagePickHint": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "packageSelectedCount": "{selected} of {total} selected",
+  "@packageSelectedCount": {
+    "placeholders": {
+      "selected": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "packageActionActivate": "Activate package",
+  "packageActivationTitle": "Activate package",
+  "packageActivationSuccessTitle": "Package activated!",
+  "packageActivationSuccessBody": "You now have access to the courses you picked.",
   "purchaseVerifying": "Confirming your purchase…",
   "purchaseSuccess": "Course purchased successfully",
   "purchasePending": "Your purchase is awaiting approval",

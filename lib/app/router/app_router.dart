@@ -23,11 +23,14 @@ import 'package:ibnzaidon/features/exams/presentation/pages/exam_result_page.dar
 import 'package:ibnzaidon/features/exams/presentation/pages/exam_taking_page.dart';
 import 'package:ibnzaidon/features/exams/presentation/pages/exams_pages.dart';
 import 'package:ibnzaidon/features/home/presentation/pages/home_page.dart';
+import 'package:ibnzaidon/features/info_pages/presentation/pages/info_page_view.dart';
 import 'package:ibnzaidon/features/lessons/presentation/pages/lesson_page.dart';
 import 'package:ibnzaidon/features/library/presentation/pages/library_page.dart';
 import 'package:ibnzaidon/features/library/presentation/pages/pdf_viewer_page.dart';
 import 'package:ibnzaidon/features/notifications/presentation/pages/notification_permission_page.dart';
 import 'package:ibnzaidon/features/notifications/presentation/pages/notifications_page.dart';
+import 'package:ibnzaidon/features/packages/presentation/pages/package_detail_page.dart';
+import 'package:ibnzaidon/features/packages/presentation/pages/packages_page.dart';
 import 'package:ibnzaidon/features/profile/presentation/pages/change_password_page.dart';
 import 'package:ibnzaidon/features/profile/presentation/pages/edit_profile_page.dart';
 import 'package:ibnzaidon/features/profile/presentation/pages/profile_page.dart';
@@ -105,6 +108,14 @@ abstract final class AppRouter {
           builder: (_, state) => CourseDetailPage(courseId: _id(state, 'id')),
         ),
         GoRoute(
+          path: AppRoutes.packages,
+          builder: (_, _) => const PackagesPage(),
+        ),
+        GoRoute(
+          path: AppRoutes.packagePattern,
+          builder: (_, state) => PackageDetailPage(packageId: _id(state, 'id')),
+        ),
+        GoRoute(
           path: AppRoutes.lessonPattern,
           builder: (_, state) => LessonPage(
             courseId: _id(state, 'courseId'),
@@ -161,6 +172,34 @@ abstract final class AppRouter {
         GoRoute(
           path: AppRoutes.changePassword,
           builder: (_, _) => const ChangePasswordPage(),
+        ),
+        GoRoute(
+          path: AppRoutes.termsConditions,
+          builder: (context, _) => InfoPageView(
+            slug: 'terms',
+            fallbackTitle: context.l10n.termsConditionsTitle,
+          ),
+        ),
+        GoRoute(
+          path: AppRoutes.privacyPolicy,
+          builder: (context, _) => InfoPageView(
+            slug: 'privacy',
+            fallbackTitle: context.l10n.privacyPolicyTitle,
+          ),
+        ),
+        GoRoute(
+          path: AppRoutes.aboutUs,
+          builder: (context, _) => InfoPageView(
+            slug: 'about',
+            fallbackTitle: context.l10n.aboutUsTitle,
+          ),
+        ),
+        GoRoute(
+          path: AppRoutes.technicalSupport,
+          builder: (context, _) => InfoPageView(
+            slug: 'support',
+            fallbackTitle: context.l10n.technicalSupportTitle,
+          ),
         ),
         GoRoute(
           path: AppRoutes.pdfViewer,

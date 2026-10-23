@@ -27,6 +27,8 @@ class SettingsPage extends StatelessWidget {
             SizedBox(height: AppSpacing.lg),
             _ThemeCard(),
             SizedBox(height: AppSpacing.lg),
+            _LegalCard(),
+            SizedBox(height: AppSpacing.lg),
             _AboutCard(),
           ],
         ),
@@ -97,6 +99,51 @@ class _ThemeCard extends StatelessWidget {
             },
             selected: mode,
             onChanged: context.read<SettingsCubit>().setThemeMode,
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _LegalCard extends StatelessWidget {
+  const _LegalCard();
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = context.l10n;
+    Widget tile(IconData icon, String label, String route) => ListTile(
+      leading: Icon(icon, color: context.colors.primary),
+      title: Text(label),
+      trailing: const Icon(
+        Icons.arrow_forward_ios_rounded,
+        size: AppSizes.iconSm,
+      ),
+      onTap: () => context.push(route),
+    );
+    return AppCard(
+      padding: EdgeInsets.zero,
+      child: Column(
+        children: [
+          tile(
+            Icons.info_outline_rounded,
+            l10n.aboutUsTitle,
+            AppRoutes.aboutUs,
+          ),
+          tile(
+            Icons.support_agent_rounded,
+            l10n.technicalSupportTitle,
+            AppRoutes.technicalSupport,
+          ),
+          tile(
+            Icons.description_outlined,
+            l10n.termsConditionsTitle,
+            AppRoutes.termsConditions,
+          ),
+          tile(
+            Icons.privacy_tip_outlined,
+            l10n.privacyPolicyTitle,
+            AppRoutes.privacyPolicy,
           ),
         ],
       ),
